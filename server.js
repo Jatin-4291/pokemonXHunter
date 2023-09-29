@@ -40,6 +40,9 @@ app.post('/register', async (req, res) => {
     if (password !== confirmPassword) {
         res.render('register', {message: "Passwords don't match"});
     }
+    else if(password.length < 8) {
+        res.render('register', {message: "Password should be atleast 8 characters long"});
+    }
     else {
         let team = {
             teamName: teamName,
@@ -75,8 +78,12 @@ app.post('/register', async (req, res) => {
         })
 
         console.log(team);
-        res.render('register', {message: "Team registered successfully"});
+        res.render('confirm');
     }
+});
+
+app.get('/confirm', (req, res) => {
+    res.render('confirm');
 });
 
 app.listen(PORT, () => {
