@@ -75,9 +75,9 @@ app.post('/register', async (req, res) => {
         res.render('register', { message: "Password should be atleast 8 characters long" });
     }
     else {
-        team.findOne({email: email}).then(()=>{
-            res.render('register',{message: "This email has been already registered"})
-        })
+        // team.findOne({email: email}).then(()=>{
+        //     res.render('register',{message: "This email has been already registered"})
+        // })
 
         const newTeam = new team({
             teamName: teamName,
@@ -105,16 +105,31 @@ app.post('/register', async (req, res) => {
             to: `${email}`,
             subject: 'Team Registered Successfully',
             html: `
-                    <div style="display:flex;justify-content:center;align-items:center;">
+                    <div>
                         <h1>Team Registered Successfully</h1>
                         <p>Team Name: ${teamName}</p>
-                        <p>Leader Name: ${leaderName}</p>
-                        <p>Member 2: ${member2}</p>
-                        <p>Member 3: ${member3}</p>
-                        <p>Member 4: ${member4}</p>
-                        <p>Member 5: ${member5}</p>
+                        <p>Leader Name: <b>${leaderName}</b></p>
+                        <p>Team Members: <b>${member2}</b> <b>${member3}</b> <b>${member4}</b> <b>${member5}</b></p>
+                    </div>
+                    <div>
+                        <h2>Contacts</h2>
+                        <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
+                        <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
+                        <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
                     </div>
                 `,
+            attachments: [
+                {
+                    filename: 'GUIDELINES.docx',
+                    path: './public/GUIDELINES.docx',
+                    contentType: 'application/docx'
+                },
+                {
+                    filename: 'HunterXPokemon.png',
+                    path: './public/HunterXPokemon.png',
+                    contentType: 'application/png'
+                }
+            ]
         }
 
         await transporter.sendMail(mail, (err, data) => {
