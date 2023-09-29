@@ -124,3 +124,53 @@ body{
 video{
     border-radius: 30rem;
 }
+
+.container-game{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 75vh;
+    width: 50vw;
+    text-align: center;
+}
+
+.container-game .submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-game .submit input{
+    padding: 10px;
+    border-radius: .3rem;
+    background-color: #c6c9cb;
+    margin-top: 1rem;
+    width: 35vw;
+}
+
+.container-game .submit button{
+    margin-top: 1rem;
+    width: 35vw;
+}
+
+.clue{
+    text-align: center;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    background-color: #D6CC99;
+    color: #0F3A53;
+    border-radius: .3rem;
+    width: 35vw;
+}
+
+@media(max-width: 768px){
+    .container-game{
+        width: 100vw;
+    }
+
+    .clue{
+        width: 90vw;
+    }
+}
