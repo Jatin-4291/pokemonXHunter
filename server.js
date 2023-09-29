@@ -84,20 +84,21 @@ app.post('/register', async (req, res) => {
             points: 0
         });
 
-        newTeam.save().then(async () => {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: `${process.env.EMAIL}`,
-                    pass: `${process.env.PASSWORD}`
-                }
-            });
+        newTeam.save();
+        
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: `${process.env.EMAIL}`,
+                pass: `${process.env.PASSWORD}`
+            }
+        });
 
-            let mail = {
-                from: `${process.env.EMAIL}`,
-                to: `${email}`,
-                subject: 'Team Registered Successfully',
-                html: `
+        let mail = {
+            from: `${process.env.EMAIL}`,
+            to: `${email}`,
+            subject: 'Team Registered Successfully',
+            html: `
                     <div style="display:flex;background-color:#113946;justify-content:center;align-items:center;">
                         <h1>Team Registered Successfully</h1>
                         <p>Team Name: ${teamName}</p>
@@ -108,19 +109,16 @@ app.post('/register', async (req, res) => {
                         <p>Member 5: ${member5}</p>
                     </div>
                 `,
-            }
+        }
 
-            await transporter.sendMail(mail, (err, data) => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    console.log(data)
-                }
-            })
-            res.render('confirm');
-        }).catch((err) => {
-            console.log(err);
-        });
+        await transporter.sendMail(mail, (err, data) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(data)
+            }
+        })
+        res.render('confirm');
     }
 });
 
