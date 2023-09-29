@@ -38,8 +38,7 @@ app.post('/register', async (req, res) => {
     let confirmPassword = req.body.confirmPassword;
 
     if (password !== confirmPassword) {
-        // res.render('register', {message: "Passwords don't match"});
-        res.send("Passwords don't match");
+        res.render('register', {message: "Passwords don't match"});
     }
     else {
         let team = {
@@ -76,8 +75,7 @@ app.post('/register', async (req, res) => {
         })
 
         console.log(team);
-        // res.render('register', {message: "Team registered successfully"});
-        res.send("Team registered successfully");
+        res.render('register', {message: "Team registered successfully"});
     }
 });
 
