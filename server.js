@@ -84,7 +84,6 @@ app.post('/register', async (req, res) => {
             points: 0
         });
 
-        newTeam.save();
         
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -107,7 +106,7 @@ app.post('/register', async (req, res) => {
                         <p>Member 3: ${member3}</p>
                         <p>Member 4: ${member4}</p>
                         <p>Member 5: ${member5}</p>
-                    </div>
+                        </div>
                 `,
         }
 
@@ -118,7 +117,12 @@ app.post('/register', async (req, res) => {
                 console.log(data)
             }
         })
-        res.render('confirm');
+
+        newTeam.save().then(()=>{
+            res.render('confirm');
+        }).catch(()=>{
+            res.redirect('/register');
+        })
     }
 });
 
