@@ -65,6 +65,9 @@ app.post('/register', async (req, res) => {
     if (teamName === "" || leaderName === "" || email === "" || password === "" || confirmPassword === "" || member2 === "") {
         res.render('register', { message: "Please fill all the required fields" });
     }
+    else if(!email.includes('@') || !email.includes('.')) {
+        res.render('register', { message: "Please enter a valid email" });
+    }
     else if (password !== confirmPassword) {
         res.render('register', { message: "Passwords don't match" });
     }
@@ -72,6 +75,10 @@ app.post('/register', async (req, res) => {
         res.render('register', { message: "Password should be atleast 8 characters long" });
     }
     else {
+        team.findOne({email: email}).then(()=>{
+            res.render('register',{message: "This email has been already registered"})
+        })
+
         const newTeam = new team({
             teamName: teamName,
             leaderName: leaderName,
@@ -98,7 +105,7 @@ app.post('/register', async (req, res) => {
             to: `${email}`,
             subject: 'Team Registered Successfully',
             html: `
-                    <div style="display:flex;background-color:#113946;justify-content:center;align-items:center;">
+                    <div style="display:flex;justify-content:center;align-items:center;">
                         <h1>Team Registered Successfully</h1>
                         <p>Team Name: ${teamName}</p>
                         <p>Leader Name: ${leaderName}</p>
@@ -106,7 +113,7 @@ app.post('/register', async (req, res) => {
                         <p>Member 3: ${member3}</p>
                         <p>Member 4: ${member4}</p>
                         <p>Member 5: ${member5}</p>
-                        </div>
+                    </div>
                 `,
         }
 
