@@ -44,7 +44,8 @@ const teamSchema = new mongoose.Schema({
     member3: String,
     member4: String,
     member5: String,
-    points: Number
+    points: Number,
+    hintsLeft: Number
 });
 
 const team = mongoose.model('team', teamSchema);
@@ -115,7 +116,8 @@ app.post('/register', async (req, res) => {
             member3: member3,
             member4: member4,
             member5: member5,
-            points: 0
+            points: 0,
+            hintsLeft: 1
         });
 
 
