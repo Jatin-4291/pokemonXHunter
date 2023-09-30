@@ -137,6 +137,7 @@ app.post('/register', async (req, res) => {
                         <p>Team Name: ${teamName}</p>
                         <p>Leader Name: <b>${leaderName}</b></p>
                         <p>Team Members: <b>${member2}</b> <br> <b>${member3}</b> <br> <b>${member4}</b> <br> <b>${member5}</b></p>
+                        <p>Join our WhatsApp group to stay updated: https://chat.whatsapp.com/Gxi1DJZtonp0CqPFebZ0Y4</p>
                     </div>
                     <div>
                         <h2>Contacts</h2>
