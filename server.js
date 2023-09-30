@@ -7,6 +7,8 @@ const nodemailer = require('nodemailer');
 const SMTPTransport = require('nodemailer/lib/smtp-transport');
 const request = require('request');
 const hint = require('./hint');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 
 const app = express();
@@ -25,6 +27,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
 
+// Set cors
+app.use(cors());
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 mongoose.connect(`mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster0.bwi1a0u.mongodb.net/?retryWrites=true&w=majority`)
 
 const teamSchema = new mongoose.Schema({
@@ -40,6 +48,23 @@ const teamSchema = new mongoose.Schema({
 });
 
 const team = mongoose.model('team', teamSchema);
+
+// passport.use(team.LocalStrategy());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+// passport.serializeUser(function (team, done) {
+//     done(null, team.id);
+// });
+
+// passport.deserializeUser(function (id, done) {
+//     User.findById(id).then((team) => {
+//         done(null, team);
+//     }).catch((err) => {
+//         console.log(err);
+//     });
+// });
+
 
 
 
@@ -65,7 +90,7 @@ app.post('/register', async (req, res) => {
     if (teamName === "" || leaderName === "" || email === "" || password === "" || confirmPassword === "" || member2 === "") {
         res.render('register', { message: "Please fill all the required fields" });
     }
-    else if(!email.includes('@') || !email.includes('.')) {
+    else if (!email.includes('@') || !email.includes('.')) {
         res.render('register', { message: "Please enter a valid email" });
     }
     else if (password !== confirmPassword) {
@@ -75,9 +100,11 @@ app.post('/register', async (req, res) => {
         res.render('register', { message: "Password should be atleast 8 characters long" });
     }
     else {
-        // team.findOne({email: email}).then(()=>{
-        //     res.render('register',{message: "This email has been already registered"})
-        // })
+        team.findOne({ email: email }).then((data) => {
+            if (data) {
+                res.render('register', { message: "Email already registered" });
+            }
+        });
 
         const newTeam = new team({
             teamName: teamName,
@@ -91,7 +118,7 @@ app.post('/register', async (req, res) => {
             points: 0
         });
 
-        
+
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -109,7 +136,7 @@ app.post('/register', async (req, res) => {
                         <h1>Team Registered Successfully</h1>
                         <p>Team Name: ${teamName}</p>
                         <p>Leader Name: <b>${leaderName}</b></p>
-                        <p>Team Members: <b>${member2}</b> <b>${member3}</b> <b>${member4}</b> <b>${member5}</b></p>
+                        <p>Team Members: <b>${member2}</b> <br> <b>${member3}</b> <br> <b>${member4}</b> <br> <b>${member5}</b></p>
                     </div>
                     <div>
                         <h2>Contacts</h2>
@@ -140,16 +167,32 @@ app.post('/register', async (req, res) => {
             }
         })
 
-        newTeam.save().then(()=>{
+        newTeam.save().then(() => {
+            // passport.use(new LocalStrategy(
+            //     function (email, password, done) {
+            //         team.findOne({ email: email }, function (err, user) {
+            //             if (err) { return done(err); }
+            //             if (!team) { return done(null, false); }
+            //             if (!team.verifyPassword(password)) { return done(null, false); }
+            //             return done(null, team);
+            //         });
+            //     }
+            // ));
+
+            // team.register({ username: email }, password, function (err, user) {
+            //     if (err) {
+            //         console.log(err);
+            //         res.redirect('/register');
+            //     }
+            //     passport.authenticate("local")(req, res, function () {
+            //         res.redirect("/confirm");
+            //     });
+            // });
             res.render('confirm');
-        }).catch(()=>{
+        }).catch(() => {
             res.redirect('/register');
         })
     }
-});
-
-app.get('/confirm', (req, res) => {
-    res.render('confirm');
 });
 
 app.get('/bellsprout', (req, res) => {
