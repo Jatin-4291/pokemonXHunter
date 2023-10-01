@@ -152,7 +152,6 @@ video{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 75vh;
     width: 50vw;
     text-align: center;
 }
@@ -189,7 +188,11 @@ video{
 
 @media(max-width: 768px){
     .container-game{
-        width: 100vw;
+        width: 90vw;
+    }
+
+    .clue{
+        width: 50vw;
     }
 
     .container-game .submit input{

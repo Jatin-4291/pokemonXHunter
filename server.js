@@ -281,275 +281,275 @@ app.post('/register', async (req, res) => {
 
 
 
-app.get(`/${code.bellsprout}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/bellsprout.png`;
-    res.render('game', { route: route, riddle: riddle.bellsprout, image: image });
-});
+// app.get(`/${code.bellsprout}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/bellsprout.png`;
+//     res.render('game', { route: route, riddle: riddle.bellsprout, image: image });
+// });
 
-app.get('/deepak', (req, res) => {
-    const route = req.route.path
-    const image = `/images/bulbasaur.png`;
-    res.render('game', { route: route, riddle: riddle.bulbasaur, image: image });
-});
+// app.get('/deepak', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/bulbasaur.png`;
+//     res.render('game', { route: route, riddle: riddle.bulbasaur, image: image });
+// });
 
-app.get(`/${code.butterfree}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/butterfree.png`;
-    res.render('game', { route: route, riddle: riddle.butterfree, image: image });
-});
+// app.get(`/${code.butterfree}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/butterfree.png`;
+//     res.render('game', { route: route, riddle: riddle.butterfree, image: image });
+// });
 
-app.get(`/${code.caterpie}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/caterpie.png`;
-    res.render('game', { route: route, riddle: riddle.caterpie, image: image });
-});
+// app.get(`/${code.caterpie}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/caterpie.png`;
+//     res.render('game', { route: route, riddle: riddle.caterpie, image: image });
+// });
 
-app.get(`/${code.chansey}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/chansey.png`;
-    res.render('game', { route: route, riddle: riddle.chansey, image: image });
-});
+// app.get(`/${code.chansey}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/chansey.png`;
+//     res.render('game', { route: route, riddle: riddle.chansey, image: image });
+// });
 
-app.get(`/${code.charizard}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/charizard.png`;
-    res.render('game', { route: route, riddle: riddle.charizard, image: image });
-});
+// app.get(`/${code.charizard}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/charizard.png`;
+//     res.render('game', { route: route, riddle: riddle.charizard, image: image });
+// });
 
-app.get(`/${code.charmander}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/charmander.png`;
-    res.render('game', { route: route, riddle: riddle.charmander, image: image });
-});
+// app.get(`/${code.charmander}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/charmander.png`;
+//     res.render('game', { route: route, riddle: riddle.charmander, image: image });
+// });
 
-app.get(`/${code.clefairy}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/clefairy.png`;
-    res.render('game', { route: route, riddle: riddle.clefairy, image: image });
-});
+// app.get(`/${code.clefairy}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/clefairy.png`;
+//     res.render('game', { route: route, riddle: riddle.clefairy, image: image });
+// });
 
-app.get(`/${code.diglett}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/diglett.png`;
-    res.render('game', { route: route, riddle: riddle.diglett, image: image });
-});
+// app.get(`/${code.diglett}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/diglett.png`;
+//     res.render('game', { route: route, riddle: riddle.diglett, image: image });
+// });
 
-app.get(`/${code.ditto}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/ditto.png`;
-    res.render('game', { route: route, riddle: riddle.ditto, image: image });
-});
+// app.get(`/${code.ditto}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/ditto.png`;
+//     res.render('game', { route: route, riddle: riddle.ditto, image: image });
+// });
 
-app.get(`/${code.dragonite}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/dragonite.png`;
-    res.render('game', { route: route, riddle: riddle.dragonite, image: image });
-});
+// app.get(`/${code.dragonite}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/dragonite.png`;
+//     res.render('game', { route: route, riddle: riddle.dragonite, image: image });
+// });
 
-app.get(`/${code.eevee}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/eevee.png`;
-    res.render('game', { route: route, riddle: riddle.eevee, image: image });
-});
+// app.get(`/${code.eevee}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/eevee.png`;
+//     res.render('game', { route: route, riddle: riddle.eevee, image: image });
+// });
 
-app.get(`/${code.ekans}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/ekans.png`;
-    res.render('game', { route: route, riddle: riddle.ekans, image: image });
-});
+// app.get(`/${code.ekans}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/ekans.png`;
+//     res.render('game', { route: route, riddle: riddle.ekans, image: image });
+// });
 
-app.get(`/${code.gengar}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/gengar.png`;
-    res.render('game', { route: route, riddle: riddle.gengar, image: image });
-});
+// app.get(`/${code.gengar}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/gengar.png`;
+//     res.render('game', { route: route, riddle: riddle.gengar, image: image });
+// });
 
-app.get(`/${code.geodude}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/geodude.png`;
-    res.render('game', { route: route, riddle: riddle.geodude, image: image });
-});
+// app.get(`/${code.geodude}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/geodude.png`;
+//     res.render('game', { route: route, riddle: riddle.geodude, image: image });
+// });
 
-app.get(`/${code.gyarados}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/gyarados.png`;
-    res.render('game', { route: route, riddle: riddle.gyarados, image: image });
-});
+// app.get(`/${code.gyarados}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/gyarados.png`;
+//     res.render('game', { route: route, riddle: riddle.gyarados, image: image });
+// });
 
-app.get(`/${code.jigglypuff}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/jigglypuff.png`;
-    res.render('game', { route: route, riddle: riddle.jigglypuff, image: image });
-});
+// app.get(`/${code.jigglypuff}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/jigglypuff.png`;
+//     res.render('game', { route: route, riddle: riddle.jigglypuff, image: image });
+// });
 
-app.get(`/${code.jynx}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/jynx.png`;
-    res.render('game', { route: route, riddle: riddle.jynx, image: image });
-});
+// app.get(`/${code.jynx}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/jynx.png`;
+//     res.render('game', { route: route, riddle: riddle.jynx, image: image });
+// });
 
-app.get(`/${code.koffing}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/koffing.png`;
-    res.render('game', { route: route, riddle: riddle.koffing, image: image });
-});
+// app.get(`/${code.koffing}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/koffing.png`;
+//     res.render('game', { route: route, riddle: riddle.koffing, image: image });
+// });
 
-app.get(`/${code.lapras}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/lapras.png`;
-    res.render('game', { route: route, riddle: riddle.lapras, image: image });
-});
+// app.get(`/${code.lapras}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/lapras.png`;
+//     res.render('game', { route: route, riddle: riddle.lapras, image: image });
+// });
 
-app.get(`/${code.machamp}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/machamp.png`;
-    res.render('game', { route: route, riddle: riddle.machamp, image: image });
-});
+// app.get(`/${code.machamp}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/machamp.png`;
+//     res.render('game', { route: route, riddle: riddle.machamp, image: image });
+// });
 
-app.get(`/${code.magikarp}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/magikarp.png`;
-    res.render('game', { route: route, riddle: riddle.magikarp, image: image });
-});
+// app.get(`/${code.magikarp}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/magikarp.png`;
+//     res.render('game', { route: route, riddle: riddle.magikarp, image: image });
+// });
 
-app.get(`/${code.meowth}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/meowth.png`;
-    res.render('game', { route: route, riddle: riddle.meowth, image: image });
-});
+// app.get(`/${code.meowth}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/meowth.png`;
+//     res.render('game', { route: route, riddle: riddle.meowth, image: image });
+// });
 
-app.get(`/${code.mew}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/mew.png`;
-    res.render('game', { route: route, riddle: riddle.mew, image: image });
-});
+// app.get(`/${code.mew}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/mew.png`;
+//     res.render('game', { route: route, riddle: riddle.mew, image: image });
+// });
 
-app.get(`/${code.mewtwo}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/mewtwo.png`;
-    res.render('game', { route: route, riddle: riddle.mewtwo, image: image });
-});
+// app.get(`/${code.mewtwo}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/mewtwo.png`;
+//     res.render('game', { route: route, riddle: riddle.mewtwo, image: image });
+// });
 
-app.get(`/${code.mr_mime}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/mr-mime.png`;
-    res.render('game', { route: route, riddle: riddle.mrmine, image: image });
-});
+// app.get(`/${code.mr_mime}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/mr-mime.png`;
+//     res.render('game', { route: route, riddle: riddle.mrmine, image: image });
+// });
 
-app.get(`/${code.muk}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/muk.png`;
-    res.render('game', { route: route, riddle: riddle.muk, image: image });
-});
+// app.get(`/${code.muk}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/muk.png`;
+//     res.render('game', { route: route, riddle: riddle.muk, image: image });
+// });
 
-app.get(`/${code.ninetales}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/ninetales.png`;
-    res.render('game', { route: route, riddle: riddle.ninetales, image: image });
-});
+// app.get(`/${code.ninetales}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/ninetales.png`;
+//     res.render('game', { route: route, riddle: riddle.ninetales, image: image });
+// });
 
-app.get(`/${code.oddish}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/oddish.png`;
-    res.render('game', { route: route, riddle: riddle.oddish, image: image });
-});
+// app.get(`/${code.oddish}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/oddish.png`;
+//     res.render('game', { route: route, riddle: riddle.oddish, image: image });
+// });
 
-app.get(`/${code.onix}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/onix.png`;
-    res.render('game', { route: route, riddle: riddle.onix, image: image });
-});
+// app.get(`/${code.onix}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/onix.png`;
+//     res.render('game', { route: route, riddle: riddle.onix, image: image });
+// });
 
-app.get(`/${code.persian}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/persian.png`;
-    res.render('game', { route: route, riddle: riddle.persian, image: image });
-});
+// app.get(`/${code.persian}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/persian.png`;
+//     res.render('game', { route: route, riddle: riddle.persian, image: image });
+// });
 
-app.get(`/${code.pikachu}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/pikachu.png`;
-    res.render('game', { route: route, riddle: riddle.pikachu, image: image });
-});
+// app.get(`/${code.pikachu}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/pikachu.png`;
+//     res.render('game', { route: route, riddle: riddle.pikachu, image: image });
+// });
 
-app.get('/hemang', (req, res) => {
-    const route = req.route.path
-    const image = `/images/psyduck.png`;
-    res.render('game', { route: route, riddle: riddle.psyduck, image: image });
-});
+// app.get('/hemang', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/psyduck.png`;
+//     res.render('game', { route: route, riddle: riddle.psyduck, image: image });
+// });
 
-app.get('/devansh', (req, res) => {
-    const route = req.route.path;
-    const image = `/images/rattata.png`;
-    res.render('game', { route: route, riddle: riddle.rattata, image: image });
-});
+// app.get('/devansh', (req, res) => {
+//     const route = req.route.path;
+//     const image = `/images/rattata.png`;
+//     res.render('game', { route: route, riddle: riddle.rattata, image: image });
+// });
 
-app.get('/akshit', (req, res) => {
-    const route = req.route.path;
-    const image = `/images/rhyhorn.png`;
-    res.render('game', { route: route, riddle: riddle.rhyhorn, image: image });
-});
+// app.get('/akshit', (req, res) => {
+//     const route = req.route.path;
+//     const image = `/images/rhyhorn.png`;
+//     res.render('game', { route: route, riddle: riddle.rhyhorn, image: image });
+// });
 
-app.get('/mahak', (req, res) => {
-    const route = req.route.path
-    const image = `/images/scyther.png`;
-    res.render('game', { route: route, riddle: riddle.scyther, image: image });
-});
+// app.get('/mahak', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/scyther.png`;
+//     res.render('game', { route: route, riddle: riddle.scyther, image: image });
+// });
 
-app.get('/mohan', (req, res) => {
-    const route = req.route.path
-    const image = `/images/seadra.png`;
-    res.render('game', { route: route, riddle: riddle.seadra, image: image });
-});
+// app.get('/mohan', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/seadra.png`;
+//     res.render('game', { route: route, riddle: riddle.seadra, image: image });
+// });
 
-app.get('/aparna', (req, res) => {
-    const route = req.route.path
-    const image = `/images/slowpoke.png`;
-    res.render('game', { route: route, riddle: riddle.slowpoke, image: image });
-});
+// app.get('/aparna', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/slowpoke.png`;
+//     res.render('game', { route: route, riddle: riddle.slowpoke, image: image });
+// });
 
-app.get(`/${code.snorlex}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/snorlax.png`;
-    res.render('game', { route: route, riddle: riddle.snorlax, image: image });
-});
+// app.get(`/${code.snorlex}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/snorlax.png`;
+//     res.render('game', { route: route, riddle: riddle.snorlax, image: image });
+// });
 
-app.get(`/${code.squirtle}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/squirtle.png`;
-    res.render('game', { route: route, riddle: riddle.squirtle, image: image });
-});
+// app.get(`/${code.squirtle}`, (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/squirtle.png`;
+//     res.render('game', { route: route, riddle: riddle.squirtle, image: image });
+// });
 
-app.get('/karan', (req, res) => {
-    const route = req.route.path
-    const image = `/images/staryu.png`;
-    res.render('game', { route: route, riddle: riddle.staryu, image: image });
-});
+// app.get('/karan', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/staryu.png`;
+//     res.render('game', { route: route, riddle: riddle.staryu, image: image });
+// });
 
-app.get('/harsh', (req, res) => {
-    const route = req.route.path
-    const image = `/images/tauros.png`;
-    res.render('game', { route: route, riddle: riddle.tauros, image: image });
-});
+// app.get('/harsh', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/tauros.png`;
+//     res.render('game', { route: route, riddle: riddle.tauros, image: image });
+// });
 
-app.get('/manya', (req, res) => {
-    const route = req.route.path
-    const image = `/images/voltorb.png`;
-    res.render('game', { route: route, riddle: riddle.voltorb, image: image });
-});
+// app.get('/manya', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/voltorb.png`;
+//     res.render('game', { route: route, riddle: riddle.voltorb, image: image });
+// });
 
-app.get('/sarvam', (req, res) => {
-    const route = req.route.path
-    const image = `/images/vulpix.png`;
-    res.render('game', { route: route, riddle: riddle.vulpix, image: image });
-});
+// app.get('/sarvam', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/vulpix.png`;
+//     res.render('game', { route: route, riddle: riddle.vulpix, image: image });
+// });
 
-app.get('/jatin', (req, res) => {
-    const route = req.route.path
-    const image = `/images/zapdos.png`;
-    res.render('game', { route: route, riddle: riddle.zapdos, image: image });
-});
+// app.get('/jatin', (req, res) => {
+//     const route = req.route.path
+//     const image = `/images/zapdos.png`;
+//     res.render('game', { route: route, riddle: riddle.zapdos, image: image });
+// });
 
 
 
