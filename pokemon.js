@@ -38,3 +38,5 @@ const pokemon = [
     'snorlex',
     'squitle',
 ]
+
+module.exports = pokemon;

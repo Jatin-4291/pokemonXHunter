@@ -31,8 +31,8 @@ app.set('view engine', 'ejs');
 // Set cors
 app.use(cors());
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.connect(`mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster0.bwi1a0u.mongodb.net/?retryWrites=true&w=majority`)
 
@@ -97,20 +97,28 @@ const teamSchema = new mongoose.Schema({
 
 const team = mongoose.model('team', teamSchema);
 
-// passport.use(team.LocalStrategy());
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-
-// passport.serializeUser(function (team, done) {
-//     done(null, team.id);
+// const adminSchema = new mongoose.Schema({
+//     username: String,
+//     password: String
 // });
 
-// passport.deserializeUser(function (id, done) {
-//     User.findById(id).then((team) => {
-//         done(null, team);
-//     }).catch((err) => {
-//         console.log(err);
-//     });
+// const admin = mongoose.model('admin', adminSchema);
+
+// passport.use(admin.createStrategy());
+// passport.serializeUser(admin.serializeUser());
+// passport.deserializeUser(admin.deserializeUser());
+
+// app.get('/admin/login', (req, res) => {
+//     res.render('adminLogin');
+// });
+
+// app.get('/admin', (req, res) => {
+//     if(req.isAuthenticated()){
+//         res.render('admin');
+//     }
+//     else{
+//         res.redirect('/admin/login');
+//     }
 // });
 
 
@@ -264,27 +272,6 @@ app.post('/register', async (req, res) => {
         })
 
         newTeam.save().then(() => {
-            // passport.use(new LocalStrategy(
-            //     function (email, password, done) {
-            //         team.findOne({ email: email }, function (err, user) {
-            //             if (err) { return done(err); }
-            //             if (!team) { return done(null, false); }
-            //             if (!team.verifyPassword(password)) { return done(null, false); }
-            //             return done(null, team);
-            //         });
-            //     }
-            // ));
-
-            // team.register({ username: email }, password, function (err, user) {
-            //     if (err) {
-            //         console.log(err);
-            //         res.redirect('/register');
-            //     }
-            //     passport.authenticate("local")(req, res, function () {
-            //         res.render('confirm');
-            //     });
-            // });
-
             res.render('confirm');
         }).catch(() => {
             res.redirect('/register');
