@@ -207,3 +207,101 @@ video{
         width: 90vw;
     }
 }
+
+
+.container-admin-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 75vh;
+}
+
+.container-admin-login .admin-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50vw;
+}
+
+.container-admin-login .admin-form input{
+    padding: 10px;
+    border-radius: .3rem;
+    background-color: #c6c9cb;
+    margin-top: 1rem;
+    width: 35vw;
+}
+
+.container-admin-login .admin-form button{
+    margin-top: 1rem;
+    width: 35vw;
+}
+
+@media screen and (max-width: 768px){
+    .container-admin-login .admin-form{
+        width: 90vw;
+    }
+
+    .container-admin-login .admin-form input{
+        width: 90vw;
+    }
+
+    .container-admin-login .admin-form button{
+        width: 90vw;
+    }
+}
+
+
+.container-admin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-admin .row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.container-admin .row h1{
+    display: contents;
+    margin-left: 1rem;
+}
+
+.container-admin .row form{
+    display: contents;
+    margin-left: 1rem;
+}
+
+.container-admin .admin-table{
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-admin .admin-table .admin-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.container-admin .admin-table .admin-row .admin-col{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-admin .row h2{
+    margin: 1.2rem 0;
+}
