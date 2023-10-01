@@ -192,6 +192,14 @@ video{
         width: 100vw;
     }
 
+    .container-game .submit input{
+        width: 90vw;
+    }
+
+    .container-game .submit button{
+        width: 90vw;
+    }
+
     .clue{
         width: 90vw;
     }

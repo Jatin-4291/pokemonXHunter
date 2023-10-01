@@ -444,9 +444,9 @@ app.get(`/${code.mewtwo}`, (req, res) => {
     res.render('game', { route: route, riddle: riddle.mewtwo, image: image });
 });
 
-app.get(`/${code.mr_mine}`, (req, res) => {
+app.get(`/${code.mr_mime}`, (req, res) => {
     const route = req.route.path
-    const image = `/images/mr-mine.png`;
+    const image = `/images/mr-mime.png`;
     res.render('game', { route: route, riddle: riddle.mrmine, image: image });
 });
 

@@ -22,7 +22,7 @@ const code = {
     meowth : '69718717',
     mew : '79718717',
     mewtwo : '79710717',
-    mr_mine : '79710710',
+    mr_mime : '79710710',
     bellsprout : '28112002',
     butterfree : '28112012',
     oddish : '79710700',
