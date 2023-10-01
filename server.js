@@ -493,11 +493,13 @@ app.get('/hemang', (req, res) => {
 });
 
 app.get('/devansh', (req, res) => {
+    const route = req.route.path;
     const image = `/images/rattata.png`;
     res.render('game', { route: route, riddle: riddle.rattata, image: image });
 });
 
 app.get('/akshit', (req, res) => {
+    const route = req.route.path;
     const image = `/images/rhyhorn.png`;
     res.render('game', { route: route, riddle: riddle.rhyhorn, image: image });
 });
