@@ -156,7 +156,7 @@ app.post('/register', async (req, res) => {
         res.render('register', { message: "Password should be atleast 8 characters long" });
     }
     else {
-        team.findOne({ email: email }).then((data) => {
+        team.findOne({ email: email }).then((err, data) => {
             if (data) {
                 res.render('register', { message: "Email already registered" });
             }
