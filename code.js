@@ -1,5 +1,5 @@
 const code = {
-    pikachu : '28112002',
+    pikachu : '28112022',
     caterpie : '28112012',
     chansey : '28112112',
     charmander : '28113132',

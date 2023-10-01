@@ -281,9 +281,10 @@ app.post('/register', async (req, res) => {
             //         res.redirect('/register');
             //     }
             //     passport.authenticate("local")(req, res, function () {
-            //         res.redirect("/confirm");
+            //         res.render('confirm');
             //     });
             // });
+
             res.render('confirm');
         }).catch(() => {
             res.redirect('/register');
