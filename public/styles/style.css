@@ -274,6 +274,7 @@ video{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 1rem 0;
 }
 
 .scoreboard{
@@ -301,6 +302,7 @@ video{
     flex-direction: column;
     width: 14vw;
     border: #D6CC99 solid 1px;
+    height: max-content;
 }
 
 .scoreboard .admin-row .admin-col:nth-child(3){
@@ -309,4 +311,35 @@ video{
 
 .scoreboard .row h2{
     margin: 1.2rem 0;
+}
+
+
+@media screen and (max-width: 768px){
+    .scoreboard .admin-row .admin-col{
+        width: 17vw;
+        font-size: small;
+        height: 16vw;
+    }
+
+    .scoreboard .admin-row .admin-col:nth-child(2){
+        width: 25vw;
+    }
+
+    .scoreboard .admin-row .admin-col:nth-child(3){
+        display: none;
+        width: 0;
+    }
+
+    .scoreboard .row h2{
+        margin: 1.2rem 0;
+        font-size: small;
+    }
+
+    .scoreboard .btn{
+        width: 10vw;
+        padding: 5px;
+        font-size: smaller;
+    }
+
+
 }
