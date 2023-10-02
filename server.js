@@ -132,8 +132,24 @@ app.get('/', (req, res) => {
 
 app.get('/admin', (req, res) => {
     if (req.isAuthenticated()) {
+        var members = 0;
         team.find().then((data) => {
-            res.render('admin', { data: data });
+            data.forEach((tm) => {
+                members+=1;
+                if(tm.member2 != ''){
+                    members+=1;
+                }
+                if(tm.member3 !== ''){
+                    members+=1;
+                }
+                if(tm.member4 !== ''){
+                    members+=1;
+                }
+                if(tm.member5 !== ''){
+                    members+=1;
+                }
+            });
+            res.render('admin', { noOfParticipants: members });
         });
     }
     else {
@@ -195,6 +211,23 @@ app.post('/admin/logout', (req, res) => {
             res.redirect('/admin/login');
         }
     })
+});
+
+app.get('/admin/scoreboard', (req, res) => {
+    if(req.isAuthenticated()){
+        team.find().then((data) => {
+            res.render('scoreboard', { data: data });
+        });
+    }
+    else{
+        res.redirect('/admin/login');
+    }
+});
+
+app.post('/admin/delete/:id', (req, res) => {
+    team.findByIdAndRemove(req.params.id).then(() =>{
+        res.redirect('/admin/scoreboard');
+    });
 });
 
 

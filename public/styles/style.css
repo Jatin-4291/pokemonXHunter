@@ -260,24 +260,23 @@ video{
     flex-direction: column;
 }
 
-.container-admin .row{
+.container-admin h1{
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.container-admin form{
+    margin: 1rem 0;
+}
+
+.container-scoreboard{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-.container-admin .row h1{
-    display: contents;
-    margin-left: 1rem;
-}
-
-.container-admin .row form{
-    display: contents;
-    margin-left: 1rem;
-}
-
-.container-admin .admin-table{
+.scoreboard{
     margin-top: 1rem;
     width: 100%;
     display: flex;
@@ -286,22 +285,28 @@ video{
     flex-direction: column;
 }
 
-.container-admin .admin-table .admin-row{
+.scoreboard .admin-row{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    width: 100%;
+    width: max-content;
+    border: #D6CC99 solid 1px;
 }
 
-.container-admin .admin-table .admin-row .admin-col{
+.scoreboard .admin-row .admin-col{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 14vw;
+    border: #D6CC99 solid 1px;
 }
 
-.container-admin .row h2{
+.scoreboard .admin-row .admin-col:nth-child(3){
+    width: 20vw;
+}
+
+.scoreboard .row h2{
     margin: 1.2rem 0;
 }

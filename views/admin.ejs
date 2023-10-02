@@ -7,23 +7,12 @@
         <form action="/admin/logout" method="post">
             <button type="submit" class="btn btn-primary">Logout</button>
         </form>
-    </div>
-
-
-    <div class="row">
-        <h2>Leaderboard</h2>
-    </div>
-    <div class="admin-table">
-        <% for  (let i = 0; i < data.length; i++) { %>
-            <div class="admin-row">
-                <div class="admin-col">
-                    <p> <%= data[i].email %> </p>
-                </div>
-                <div class="admin-col">
-                    <p> <%= data[i].points %> </p>
-                </div>
-            </div>
-        <% } %>
+        <form action="/admin/scoreboard" method="get">
+            <button type="submit" class="btn btn-primary">Scoreboard</button>
+        </form>
+        <div>
+            <h3>No of participants are = <%= noOfParticipants %> </h3>
+        </div>
     </div>
 </div>
 
