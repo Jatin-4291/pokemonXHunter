@@ -390,3 +390,27 @@ video{
 
 
 }
+
+.container-edit{
+    margin: 3rem 0;
+}
+
+.container-edit .row .edit-form form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-edit .row .edit-form form input{
+    padding: 10px;
+    border-radius: .3rem;
+    background-color: #c6c9cb;
+    margin-top: 1rem;
+    width: 35vw;
+}
+
+.container-edit .row .edit-form form button{
+    margin-top: 1rem;
+    width: 35vw;
+}

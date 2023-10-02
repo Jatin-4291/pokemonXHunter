@@ -159,23 +159,11 @@ app.get('/admin', (req, res) => {
 
 app.post('/admin/card-submit',(req,res)=>{
     const email = req.body.email;
-    let points = 0;
 
-    team.findOne({email:email}).then((data)=>{
-        if(data){
-            points = data.points;
-        }
-        else{
-            res.redirect('/admin');
-        }
-    })
-
-    team.findOneAndUpdate({email:email},{points:points+3}).then(()=>{
-        alert('Points updated');
-        res.redirect('/admin');
+    team.updateOne({email: email}, { $inc: {points: 3}}).then(()=>{
+        res.send('Points updated');
     }).catch((err)=>{
         console.log(err);
-        res.redirect('/admin');
     });
 
 })
@@ -252,6 +240,22 @@ app.post('/admin/delete/:id', (req, res) => {
         res.redirect('/admin/scoreboard');
     });
 });
+
+app.post('/admin/edit/:id', (req, res) => {
+    team.findById(req.params.id).then((data) => {
+        res.render('edit', { data: data });
+    });
+});
+
+app.post('/edit',(req,res)=>{
+    const email = req.body.email;
+    team.findOneAndUpdate({email: email}, { member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5 }).then(()=>{
+        res.redirect('/admin/scoreboard');
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).send('Something went wrong');
+    });
+})
 
 app.get('/register', (req, res) => {
     res.render('register', { message: "" });
@@ -416,18 +420,11 @@ app.get(`/${code.bellsprout}`, (req, res) => {
 app.post(`/${code.bellsprout}`, (req, res) => {
     const email = req.body.email;
 
-    let points = 0;
-    let password;
-    team.findOne({ email: email }).then((data) => {
-        points = data.points;
-    })
-
-    team.findOneAndUpdate({ email: email }, { points: points + 1 }).then(() => {
-        res.send('hello');
-    }).catch((err) => {
+    team.updateOne({email: email}, { $inc: {points: 1}, $set: {bellsprout: true}}).then(()=>{
+        res.send('Points updated');
+    }).catch((err)=>{
         console.log(err);
-        res.redirect(`/${code.bellsprout}`);
-    })
+    });
 })
 
 // app.get(`/${code.bulbasaur}`, (req, res) => {
