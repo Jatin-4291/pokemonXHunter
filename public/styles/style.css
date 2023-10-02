@@ -260,6 +260,48 @@ video{
     flex-direction: column;
 }
 
+.container-admin .admin-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100vw;
+    margin: 1rem 0;
+}
+
+.container-admin .admin-nav .btn{
+    width: 15vw;
+    margin: 1rem;
+}
+
+.container-admin .row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-admin .row .card-collect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50vw;
+    margin: 1rem 0;
+}
+
+.container-admin .row .card-collect .btn{
+    width: 35vw;
+    margin: 1rem 0;
+}
+
+.container-admin .row input{
+    padding: 10px;
+    border-radius: .3rem;
+    background-color: #c6c9cb;
+    margin-top: 1rem;
+    width: 35vw;
+}
+
 .container-admin h1{
     text-align: center;
     margin: 1rem 0;
@@ -300,9 +342,9 @@ video{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 14vw;
+    width: 12.4vw;
     border: #D6CC99 solid 1px;
-    height: max-content;
+    height: 8vh;
 }
 
 .scoreboard .admin-row .admin-col:nth-child(3){
@@ -326,6 +368,11 @@ video{
     }
 
     .scoreboard .admin-row .admin-col:nth-child(3){
+        display: none;
+        width: 0;
+    }
+
+    .scoreboard .admin-row .admin-col:nth-child(7){
         display: none;
         width: 0;
     }

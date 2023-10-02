@@ -25,6 +25,9 @@
             <div class="admin-col">
                 <p> <b> Delete </b> </p>
             </div>
+            <div class="admin-col">
+                <p> <b> Edit </b> </p>
+            </div>
         </div>
         <% for  (let i = 0; i < data.length; i++) { %>
             <div class="admin-row">
@@ -46,6 +49,11 @@
                 <div class="admin-col">
                     <form action="/admin/delete/<%=data[i]._id%>" method="post">
                         <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                </div>
+                <div class="admin-col">
+                    <form action="/admin/edit/<%=data[i]._id%>" method="post">
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
                 </div>
             </div>

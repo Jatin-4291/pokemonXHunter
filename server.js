@@ -135,18 +135,18 @@ app.get('/admin', (req, res) => {
         var members = 0;
         team.find().then((data) => {
             data.forEach((tm) => {
-                members+=1;
-                if(tm.member2 != ''){
-                    members+=1;
+                members += 1;
+                if (tm.member2 != '') {
+                    members += 1;
                 }
-                if(tm.member3 !== ''){
-                    members+=1;
+                if (tm.member3 !== '') {
+                    members += 1;
                 }
-                if(tm.member4 !== ''){
-                    members+=1;
+                if (tm.member4 !== '') {
+                    members += 1;
                 }
-                if(tm.member5 !== ''){
-                    members+=1;
+                if (tm.member5 !== '') {
+                    members += 1;
                 }
             });
             res.render('admin', { noOfParticipants: members });
@@ -157,28 +157,51 @@ app.get('/admin', (req, res) => {
     }
 });
 
-app.get('/admin/register', (req, res) => {
-    res.render('adminRegister', { message: "" });
-});
+app.post('/admin/card-submit',(req,res)=>{
+    const email = req.body.email;
+    let points = 0;
 
-app.post('/admin/register', (req, res) => {
-    if (req.body.username === "" || req.body.password === "") {
-        res.render('adminRegister', { message: "Please fill all the required fields" });
-    }
-    else if (req.body.password.length < 8) {
-        res.render('adminRegister', { message: "Password should be atleast 8 characters long" });
-    }
-    else {
-        admin.register({ username: req.body.username }, req.body.password).then((adm) => {
-            passport.authenticate('local')(req, res, () => {
-                res.redirect('/admin');
-            });
-        }).catch((err) => {
-            console.log(err);
-            res.redirect('/admin/register');
-        });
-    }
-});
+    team.findOne({email:email}).then((data)=>{
+        if(data){
+            points = data.points;
+        }
+        else{
+            res.redirect('/admin');
+        }
+    })
+
+    team.findOneAndUpdate({email:email},{points:points+3}).then(()=>{
+        alert('Points updated');
+        res.redirect('/admin');
+    }).catch((err)=>{
+        console.log(err);
+        res.redirect('/admin');
+    });
+
+})
+
+// app.get('/admin/register', (req, res) => {
+//     res.render('adminRegister', { message: "" });
+// });
+
+// app.post('/admin/register', (req, res) => {
+//     if (req.body.username === "" || req.body.password === "") {
+//         res.render('adminRegister', { message: "Please fill all the required fields" });
+//     }
+//     else if (req.body.password.length < 8) {
+//         res.render('adminRegister', { message: "Password should be atleast 8 characters long" });
+//     }
+//     else {
+//         admin.register({ username: req.body.username }, req.body.password).then((adm) => {
+//             passport.authenticate('local')(req, res, () => {
+//                 res.redirect('/admin');
+//             });
+//         }).catch((err) => {
+//             console.log(err);
+//             res.redirect('/admin/register');
+//         });
+//     }
+// });
 
 app.get('/admin/login', (req, res) => {
     res.render('adminLogin');
@@ -203,33 +226,32 @@ app.post('/admin/login', (req, res) => {
 });
 
 app.post('/admin/logout', (req, res) => {
-    req.logout((err)=>{
-        if(err){
+    req.logout((err) => {
+        if (err) {
             console.log(err);
         }
-        else{
+        else {
             res.redirect('/admin/login');
         }
     })
 });
 
 app.get('/admin/scoreboard', (req, res) => {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         team.find().then((data) => {
             res.render('scoreboard', { data: data });
         });
     }
-    else{
+    else {
         res.redirect('/admin/login');
     }
 });
 
 app.post('/admin/delete/:id', (req, res) => {
-    team.findByIdAndRemove(req.params.id).then(() =>{
+    team.findByIdAndRemove(req.params.id).then(() => {
         res.redirect('/admin/scoreboard');
     });
 });
-
 
 app.get('/register', (req, res) => {
     res.render('register', { message: "" });
@@ -390,6 +412,29 @@ app.get(`/${code.bellsprout}`, (req, res) => {
     const image = `/images/bellsprout.png`;
     res.render('game', { route: route, riddle: riddle.bellsprout, image: image });
 });
+
+app.post(`/${code.bellsprout}`, (req, res) => {
+    const email = req.body.email;
+
+    let points = 0;
+    let password;
+    team.findOne({ email: email }).then((data) => {
+        points = data.points;
+    })
+
+    team.findOneAndUpdate({ email: email }, { points: points + 1 }).then(() => {
+        res.send('hello');
+    }).catch((err) => {
+        console.log(err);
+        res.redirect(`/${code.bellsprout}`);
+    })
+})
+
+// app.get(`/${code.bulbasaur}`, (req, res) => {
+//     const route = req.route.path;
+//     const image = `/images/bulbasaur.png`;
+//     res.render('game', { route: route, riddle: riddle.bulbasaur, image: image });
+// });
 
 app.get('/deepak', (req, res) => {
     const route = req.route.path
