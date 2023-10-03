@@ -179,11 +179,12 @@ video{
 .clue{
     text-align: center;
     margin: 1rem 0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     background-color: #D6CC99;
     color: #0F3A53;
     border-radius: .3rem;
     width: 35vw;
+    padding: .9rem;
 }
 
 @media(max-width: 768px){
@@ -278,6 +279,7 @@ video{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row ;
 }
 
 .container-admin .row .card-collect{
@@ -307,8 +309,8 @@ video{
     margin: 1rem 0;
 }
 
-.container-admin form{
-    margin: 1rem 0;
+.container-admin h3{
+    text-align: center;
 }
 
 .container-scoreboard{

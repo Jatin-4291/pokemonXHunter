@@ -15,6 +15,7 @@ const pokemon = require('./pokemon');
 const path1 = require('./path1');
 const path2 = require('./path2');
 const path3 = require('./path3');
+const hint = require('./hint')
 const routes = require('./route');
 
 const app = express();
@@ -193,7 +194,7 @@ app.post('/admin/card-submit', (req, res) => {
 //             res.redirect('/admin/register');
 //         });
 //     }
-// });
+// }); 
 
 app.get('/admin/login', (req, res) => {
     res.render('adminLogin');
@@ -252,8 +253,65 @@ app.post('/admin/edit/:id', (req, res) => {
 });
 
 app.post('/start', async (req, res) => {
-    const email = 'maasif004@gmail.com';
-    team.findOne({ email: email }).then( async (data) => {
+    team.find().then(async (data) => {
+        for (let i = 0; i < data.length; i++) {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: `${process.env.EMAIL}`,
+                    pass: `${process.env.PASSWORD}`
+                }
+            });
+
+            let mail = {
+                from: `${process.env.EMAIL}`,
+                to: `${data[i].email}`,
+                subject: 'Game Started',
+                html: `
+                        <h1>Your First Clue is here GOOD LUCK for the Game</h1>
+                        <div>
+                            ${riddle[data.next]}
+                        </div>
+                        <div>
+                            https://pokemonxhunter.onrender.com/riddle/${data.next}
+                        </div>
+                        <div>
+                            <h2>Contacts for any query</h2>
+                            <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
+                            <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
+                            <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
+                        </div>
+                    `
+            }
+
+            await transporter.sendMail(mail, (err, data) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    res.render('message',{message: "Mail Sent"});
+                }
+            })
+        }
+    });
+});
+
+app.post('/hint-single',(req,res)=>{
+    const email = req.body.email;
+    const hnts = req.body.hints;
+
+    team.findOne({email:email}).then((data)=>{
+        team.updateOne({email:email},{$inc:{hintsLeft:hnts}}).then(()=>{
+            res.redirect('/admin');
+        }).catch((err)=>{
+            console.log(err);
+            res.status(500).send('Something went wrong');
+        });
+    });
+});
+
+app.post('/start-single', (req, res) => {
+    const email = req.body.email;
+    team.findOne({ email: email }).then(async (data) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -265,7 +323,7 @@ app.post('/start', async (req, res) => {
         let mail = {
             from: `${process.env.EMAIL}`,
             to: `${email}`,
-            subject: 'Team Registered Successfully',
+            subject: 'Game Started',
             html: `
                     <h1>Your First Clue is here GOOD LUCK for the Game</h1>
                     <div>
@@ -295,10 +353,11 @@ app.post('/start', async (req, res) => {
     });
 });
 
+
 app.post('/edit', (req, res) => {
     const email = req.body.email;
-    
-    team.findOneAndUpdate({ email: email }, {member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5, next : req.body.next }).then(() => {
+
+    team.findOneAndUpdate({ email: email }, { member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5, next: req.body.next }).then(() => {
         res.redirect('/admin/scoreboard');
     }).catch((err) => {
         console.log(err);
@@ -466,28 +525,63 @@ app.post('/admin/register', async (req, res) => {
     }
 });
 
-app.get('/riddle/:code',(req,res)=>{
-    res.render('riddle',{riddle:riddle[req.params.code]});
+app.get('/riddle/:code', (req, res) => {
+    const route = routes[req.params.code];
+    res.render('riddle', { route: route, riddle: riddle[req.params.code] });
 })
+
+app.get('/hint/:code', (req, res) => {
+    const image = `/images/${codes[req.params.code]}.png`
+    res.render('hint', { image: image, code: req.params.code });
+});
+
+app.post('/hint/:code', (req, res) => {
+    const email = req.body.email;
+    team.findOne({ email: email }).then((data) => {
+        if (data.hintsLeft === 0) {
+            res.render('message', "No hints Left");
+        }
+        else {
+            team.updateOne({ email: email }, { $inc: { hintsLeft: -1 } }).then(() => {
+                res.render('message', { message: hint[req.params.code] });
+            }).catch((err) => {
+                console.log(err);
+                res.status(500).send('Something went wrong');
+            });
+        }
+    });
+});
+
+app.get('/ankur', (req, res) => {
+    res.render('message', { message: "Meet me at Computer Department, Ankur Yadav" })
+});
+
+app.get('/mohan', (req, res) => {
+    res.render('message', { message: "Meet me at the Mother Dairy, Mohan(M.K)" })
+});
+
+app.get('/hemang', (req, res) => {
+    res.render('message', { message: "Meet me at the front of Mechanical Department, Hemang" })
+});
 
 
 app.get(`/:code`, (req, res) => {
     const route = req.params.code;
     const image = `/images/${codes[req.params.code]}.png`;
-    res.render('game', { route: route, riddle: riddle[codes[req.params.code]], image: image });    
+    res.render('game', { route: route, riddle: riddle[codes[req.params.code]], image: image });
 });
 
 app.post(`/:code`, (req, res) => {
     const email = req.body.email;
-    team.findOne({email: email}).then((data) => {
+    team.findOne({ email: email }).then((data) => {
         let nxt = data.next;
 
-        if(nxt != codes[req.params.code]) {
-            res.send('Wrong code');
+        if (nxt != codes[req.params.code]) {
+            res.render('message', { message: "Wrong Answer" })
         }
-        else{
-            if(path1[codes[req.params.code]] != undefined){
-                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path1[nxt] } }).then( async () => {
+        else {
+            if (path1[codes[req.params.code]] != undefined) {
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path1[nxt] } }).then(async () => {
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -495,19 +589,28 @@ app.post(`/:code`, (req, res) => {
                             pass: `${process.env.PASSWORD}`
                         }
                     });
-            
+
                     let mail = {
                         from: `${process.env.EMAIL}`,
                         to: `${email}`,
                         subject: 'Team Registered Successfully',
                         html: `
+                                <h1>Your Next Clue is here GOOD LUCK for the Game</h1>
                                 <div>
                                     ${riddle[data.next]}
                                 </div>
-
+                                <div>
+                                    https://pokemonxhunter.onrender.com/riddle/${data.next}
+                                </div>
+                                <div>
+                                    <h2>Contacts for any query</h2>
+                                    <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
+                                    <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
+                                    <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
+                                </div>
                             `
                     }
-            
+
                     await transporter.sendMail(mail, (err, data) => {
                         if (err) {
                             console.log(err)
@@ -523,16 +626,92 @@ app.post(`/:code`, (req, res) => {
                     res.status(500).send('Something went wrong');
                 });
             }
-            else if (path2[codes[req.params.code]] != undefined){
-                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path2[nxt] } }).then(() => {
+            else if (path2[codes[req.params.code]] != undefined) {
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path2[nxt] } }).then(async () => {
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: `${process.env.EMAIL}`,
+                            pass: `${process.env.PASSWORD}`
+                        }
+                    });
+
+                    let mail = {
+                        from: `${process.env.EMAIL}`,
+                        to: `${email}`,
+                        subject: 'Team Registered Successfully',
+                        html: `
+                                <h1>Your Next Clue is here GOOD LUCK for the Game</h1>
+                                <div>
+                                    ${riddle[data.next]}
+                                </div>
+                                <div>
+                                    https://pokemonxhunter.onrender.com/riddle/${data.next}
+                                </div>
+                                <div>
+                                    <h2>Contacts for any query</h2>
+                                    <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
+                                    <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
+                                    <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
+                                </div>
+                            `
+                    }
+
+                    await transporter.sendMail(mail, (err, data) => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log(data)
+                            res.redirect('/admin');
+                        }
+                    })
+
                     res.render('riddle', { riddle: riddle[path2[nxt]] });
                 }).catch((err) => {
                     console.log(err);
                     res.status(500).send('Something went wrong');
                 });
             }
-            else if (path3[codes[req.params.code]] != undefined){
-                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path3[nxt] } }).then(() => {
+            else if (path3[codes[req.params.code]] != undefined) {
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path3[nxt] } }).then(async () => {
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: `${process.env.EMAIL}`,
+                            pass: `${process.env.PASSWORD}`
+                        }
+                    });
+
+                    let mail = {
+                        from: `${process.env.EMAIL}`,
+                        to: `${email}`,
+                        subject: 'Team Registered Successfully',
+                        html: `
+                                <h1>Your Next Clue is here GOOD LUCK for the Game</h1>
+                                <div>
+                                    ${riddle[data.next]}
+                                </div>
+                                <div>
+                                    https://pokemonxhunter.onrender.com/riddle/${data.next}
+                                </div>
+                                <div>
+                                    <h2>Contacts for any query</h2>
+                                    <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
+                                    <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
+                                    <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
+                                </div>
+                            `
+                    }
+
+                    await transporter.sendMail(mail, (err, data) => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log(data)
+                            res.redirect('/admin');
+                        }
+                    })
+
                     res.render('riddle', { riddle: riddle[path2[nxt]] });
                 }).catch((err) => {
                     console.log(err);
@@ -542,7 +721,6 @@ app.post(`/:code`, (req, res) => {
         }
     });
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
