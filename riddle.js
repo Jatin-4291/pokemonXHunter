@@ -35,7 +35,18 @@ const location = {
 
 const riddle = {
     pikachu : location.saraswati_mata,
-    bulbasaur : location.library,
+    chansey : location.library,
+    charmender : location.supra_quater,
+    caterpie : location.cafeteria,
+    charizard : location.bank,
+    clefairy : location.tpo,
+    diglett : location.nursery,
+    ditto : location.sports_room,
+    dragonite : location.auditorium,
+    eevee : location.vc_office_front,
+    squitle : location.computer_department,
+
+    
 }
 
 module.exports = riddle;

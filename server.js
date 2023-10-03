@@ -157,12 +157,12 @@ app.get('/admin', (req, res) => {
     }
 });
 
-app.post('/admin/card-submit',(req,res)=>{
+app.post('/admin/card-submit', (req, res) => {
     const email = req.body.email;
 
-    team.updateOne({email: email}, { $inc: {points: 3}}).then(()=>{
+    team.updateOne({ email: email }, { $inc: { points: 3 } }).then(() => {
         res.send('Points updated');
-    }).catch((err)=>{
+    }).catch((err) => {
         console.log(err);
     });
 
@@ -247,17 +247,53 @@ app.post('/admin/edit/:id', (req, res) => {
     });
 });
 
-app.post('/edit',(req,res)=>{
+app.post('/start', async (req, res) => {
+    const email = 'maasif004@gmail.com';
+    team.findOne({ email: email }).then( async (data) => {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: `${process.env.EMAIL}`,
+                pass: `${process.env.PASSWORD}`
+            }
+        });
+
+        let mail = {
+            from: `${process.env.EMAIL}`,
+            to: `${email}`,
+            subject: 'Team Registered Successfully',
+            html: `
+                    <div>
+                    Ignore kr testing k liye dekh rha hu ye
+                    ${data.teamName}
+                    ${data.next}
+                    </div>
+                `
+        }
+
+        await transporter.sendMail(mail, (err, data) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(data)
+                res.redirect('/admin');
+            }
+        })
+
+    });
+});
+
+app.post('/edit', (req, res) => {
     const email = req.body.email;
-    team.findOneAndUpdate({email: email}, { member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5 }).then(()=>{
+    team.findOneAndUpdate({ email: email }, { member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5, next : req.body.next }).then(() => {
         res.redirect('/admin/scoreboard');
-    }).catch((err)=>{
+    }).catch((err) => {
         console.log(err);
         res.status(500).send('Something went wrong');
     });
 })
 
-app.get('/register',(req,res)=>{
+app.get('/register', (req, res) => {
     res.render('register-end');
 })
 
@@ -266,7 +302,7 @@ app.get('/admin/register', (req, res) => {
 });
 
 app.post('/admin/register', async (req, res) => {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         const teamName = req.body.teamName;
         const leaderName = req.body.leaderName;
         const email = req.body.email;
@@ -412,7 +448,7 @@ app.post('/admin/register', async (req, res) => {
             })
         }
     }
-    else{
+    else {
         res.redirect('/admin/login');
     }
 });
@@ -429,9 +465,9 @@ app.get(`/${code.bellsprout}`, (req, res) => {
 app.post(`/${code.bellsprout}`, (req, res) => {
     const email = req.body.email;
 
-    team.updateOne({email: email}, { $inc: {points: 1}, $set: {bellsprout: true}}).then(()=>{
+    team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { bellsprout: true } }).then(() => {
         res.send('Points updated');
-    }).catch((err)=>{
+    }).catch((err) => {
         console.log(err);
     });
 })

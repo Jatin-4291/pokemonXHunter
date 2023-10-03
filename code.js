@@ -1,6 +1,6 @@
 const code = {
     pikachu : '28112022',
-    caterpie : '28112012',
+    caterpie : '28112000',
     chansey : '28112112',
     charmander : '28113132',
     charizard : '28113112',
