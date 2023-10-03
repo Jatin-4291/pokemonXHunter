@@ -7,11 +7,15 @@ const nodemailer = require('nodemailer');
 const SMTPTransport = require('nodemailer/lib/smtp-transport');
 const request = require('request');
 const riddle = require('./riddle');
-const code = require('./code');
+const codes = require('./code');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const session = require('express-session');
 const pokemon = require('./pokemon');
+const path1 = require('./path1');
+const path2 = require('./path2');
+const path3 = require('./path3');
+const routes = require('./route');
 
 const app = express();
 const PORT = 5000;
@@ -263,10 +267,18 @@ app.post('/start', async (req, res) => {
             to: `${email}`,
             subject: 'Team Registered Successfully',
             html: `
+                    <h1>Your First Clue is here GOOD LUCK for the Game</h1>
                     <div>
-                    Ignore kr testing k liye dekh rha hu ye
-                    ${data.teamName}
-                    ${data.next}
+                        ${riddle[data.next]}
+                    </div>
+                    <div>
+                        https://pokemonxhunter.onrender.com/riddle/${data.next}
+                    </div>
+                    <div>
+                        <h2>Contacts for any query</h2>
+                        <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
+                        <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
+                        <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
                     </div>
                 `
         }
@@ -285,7 +297,8 @@ app.post('/start', async (req, res) => {
 
 app.post('/edit', (req, res) => {
     const email = req.body.email;
-    team.findOneAndUpdate({ email: email }, { member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5, next : req.body.next }).then(() => {
+    
+    team.findOneAndUpdate({ email: email }, {member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5, next : req.body.next }).then(() => {
         res.redirect('/admin/scoreboard');
     }).catch((err) => {
         console.log(err);
@@ -453,295 +466,82 @@ app.post('/admin/register', async (req, res) => {
     }
 });
 
-
-
-
-app.get(`/${code.bellsprout}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/bellsprout.png`;
-    res.render('game', { route: route, riddle: riddle.bellsprout, image: image });
-});
-
-app.post(`/${code.bellsprout}`, (req, res) => {
-    const email = req.body.email;
-
-    team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { bellsprout: true } }).then(() => {
-        res.send('Points updated');
-    }).catch((err) => {
-        console.log(err);
-    });
+app.get('/riddle/:code',(req,res)=>{
+    res.render('riddle',{riddle:riddle[req.params.code]});
 })
 
-// app.get(`/${code.bulbasaur}`, (req, res) => {
-//     const route = req.route.path;
-//     const image = `/images/bulbasaur.png`;
-//     res.render('game', { route: route, riddle: riddle.bulbasaur, image: image });
-// });
 
-app.get('/deepak', (req, res) => {
-    const route = req.route.path
-    const image = `/images/bulbasaur.png`;
-    res.render('game', { route: route, riddle: riddle.bulbasaur, image: image });
+app.get(`/:code`, (req, res) => {
+    const route = req.params.code;
+    const image = `/images/${codes[req.params.code]}.png`;
+    res.render('game', { route: route, riddle: riddle[codes[req.params.code]], image: image });    
 });
 
-app.get(`/${code.butterfree}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/butterfree.png`;
-    res.render('game', { route: route, riddle: riddle.butterfree, image: image });
-});
+app.post(`/:code`, (req, res) => {
+    const email = req.body.email;
+    team.findOne({email: email}).then((data) => {
+        let nxt = data.next;
 
-app.get(`/${code.caterpie}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/caterpie.png`;
-    res.render('game', { route: route, riddle: riddle.caterpie, image: image });
-});
+        if(nxt != codes[req.params.code]) {
+            res.send('Wrong code');
+        }
+        else{
+            if(path1[codes[req.params.code]] != undefined){
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path1[nxt] } }).then( async () => {
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: `${process.env.EMAIL}`,
+                            pass: `${process.env.PASSWORD}`
+                        }
+                    });
+            
+                    let mail = {
+                        from: `${process.env.EMAIL}`,
+                        to: `${email}`,
+                        subject: 'Team Registered Successfully',
+                        html: `
+                                <div>
+                                    ${riddle[data.next]}
+                                </div>
 
-app.get(`/${code.chansey}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/chansey.png`;
-    res.render('game', { route: route, riddle: riddle.chansey, image: image });
-});
+                            `
+                    }
+            
+                    await transporter.sendMail(mail, (err, data) => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log(data)
+                            res.redirect('/admin');
+                        }
+                    })
 
-app.get(`/${code.charizard}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/charizard.png`;
-    res.render('game', { route: route, riddle: riddle.charizard, image: image });
+                    res.render('riddle', { riddle: riddle[path1[nxt]] });
+                }).catch((err) => {
+                    console.log(err);
+                    res.status(500).send('Something went wrong');
+                });
+            }
+            else if (path2[codes[req.params.code]] != undefined){
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path2[nxt] } }).then(() => {
+                    res.render('riddle', { riddle: riddle[path2[nxt]] });
+                }).catch((err) => {
+                    console.log(err);
+                    res.status(500).send('Something went wrong');
+                });
+            }
+            else if (path3[codes[req.params.code]] != undefined){
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path3[nxt] } }).then(() => {
+                    res.render('riddle', { riddle: riddle[path2[nxt]] });
+                }).catch((err) => {
+                    console.log(err);
+                    res.status(500).send('Something went wrong');
+                });
+            }
+        }
+    });
 });
-
-app.get(`/${code.charmander}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/charmander.png`;
-    res.render('game', { route: route, riddle: riddle.charmander, image: image });
-});
-
-app.get(`/${code.clefairy}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/clefairy.png`;
-    res.render('game', { route: route, riddle: riddle.clefairy, image: image });
-});
-
-app.get(`/${code.diglett}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/diglett.png`;
-    res.render('game', { route: route, riddle: riddle.diglett, image: image });
-});
-
-app.get(`/${code.ditto}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/ditto.png`;
-    res.render('game', { route: route, riddle: riddle.ditto, image: image });
-});
-
-app.get(`/${code.dragonite}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/dragonite.png`;
-    res.render('game', { route: route, riddle: riddle.dragonite, image: image });
-});
-
-app.get(`/${code.eevee}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/eevee.png`;
-    res.render('game', { route: route, riddle: riddle.eevee, image: image });
-});
-
-app.get(`/${code.ekans}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/ekans.png`;
-    res.render('game', { route: route, riddle: riddle.ekans, image: image });
-});
-
-app.get(`/${code.gengar}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/gengar.png`;
-    res.render('game', { route: route, riddle: riddle.gengar, image: image });
-});
-
-app.get(`/${code.geodude}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/geodude.png`;
-    res.render('game', { route: route, riddle: riddle.geodude, image: image });
-});
-
-app.get(`/${code.gyarados}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/gyarados.png`;
-    res.render('game', { route: route, riddle: riddle.gyarados, image: image });
-});
-
-app.get(`/${code.jigglypuff}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/jigglypuff.png`;
-    res.render('game', { route: route, riddle: riddle.jigglypuff, image: image });
-});
-
-app.get(`/${code.jynx}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/jynx.png`;
-    res.render('game', { route: route, riddle: riddle.jynx, image: image });
-});
-
-app.get(`/${code.koffing}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/koffing.png`;
-    res.render('game', { route: route, riddle: riddle.koffing, image: image });
-});
-
-app.get(`/${code.lapras}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/lapras.png`;
-    res.render('game', { route: route, riddle: riddle.lapras, image: image });
-});
-
-app.get(`/${code.machamp}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/machamp.png`;
-    res.render('game', { route: route, riddle: riddle.machamp, image: image });
-});
-
-app.get(`/${code.magikarp}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/magikarp.png`;
-    res.render('game', { route: route, riddle: riddle.magikarp, image: image });
-});
-
-app.get(`/${code.meowth}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/meowth.png`;
-    res.render('game', { route: route, riddle: riddle.meowth, image: image });
-});
-
-app.get(`/${code.mew}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/mew.png`;
-    res.render('game', { route: route, riddle: riddle.mew, image: image });
-});
-
-app.get(`/${code.mewtwo}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/mewtwo.png`;
-    res.render('game', { route: route, riddle: riddle.mewtwo, image: image });
-});
-
-app.get(`/${code.mr_mime}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/mr-mime.png`;
-    res.render('game', { route: route, riddle: riddle.mrmine, image: image });
-});
-
-app.get(`/${code.muk}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/muk.png`;
-    res.render('game', { route: route, riddle: riddle.muk, image: image });
-});
-
-app.get(`/${code.ninetales}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/ninetales.png`;
-    res.render('game', { route: route, riddle: riddle.ninetales, image: image });
-});
-
-app.get(`/${code.oddish}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/oddish.png`;
-    res.render('game', { route: route, riddle: riddle.oddish, image: image });
-});
-
-app.get(`/${code.onix}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/onix.png`;
-    res.render('game', { route: route, riddle: riddle.onix, image: image });
-});
-
-app.get(`/${code.persian}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/persian.png`;
-    res.render('game', { route: route, riddle: riddle.persian, image: image });
-});
-
-app.get(`/${code.pikachu}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/pikachu.png`;
-    res.render('game', { route: route, riddle: riddle.pikachu, image: image });
-});
-
-app.get('/hemang', (req, res) => {
-    const route = req.route.path
-    const image = `/images/psyduck.png`;
-    res.render('game', { route: route, riddle: riddle.psyduck, image: image });
-});
-
-app.get('/devansh', (req, res) => {
-    const route = req.route.path;
-    const image = `/images/rattata.png`;
-    res.render('game', { route: route, riddle: riddle.rattata, image: image });
-});
-
-app.get('/akshit', (req, res) => {
-    const route = req.route.path;
-    const image = `/images/rhyhorn.png`;
-    res.render('game', { route: route, riddle: riddle.rhyhorn, image: image });
-});
-
-app.get('/mahak', (req, res) => {
-    const route = req.route.path
-    const image = `/images/scyther.png`;
-    res.render('game', { route: route, riddle: riddle.scyther, image: image });
-});
-
-app.get('/mohan', (req, res) => {
-    const route = req.route.path
-    const image = `/images/seadra.png`;
-    res.render('game', { route: route, riddle: riddle.seadra, image: image });
-});
-
-app.get('/aparna', (req, res) => {
-    const route = req.route.path
-    const image = `/images/slowpoke.png`;
-    res.render('game', { route: route, riddle: riddle.slowpoke, image: image });
-});
-
-app.get(`/${code.snorlex}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/snorlax.png`;
-    res.render('game', { route: route, riddle: riddle.snorlax, image: image });
-});
-
-app.get(`/${code.squirtle}`, (req, res) => {
-    const route = req.route.path
-    const image = `/images/squirtle.png`;
-    res.render('game', { route: route, riddle: riddle.squirtle, image: image });
-});
-
-app.get('/karan', (req, res) => {
-    const route = req.route.path
-    const image = `/images/staryu.png`;
-    res.render('game', { route: route, riddle: riddle.staryu, image: image });
-});
-
-app.get('/harsh', (req, res) => {
-    const route = req.route.path
-    const image = `/images/tauros.png`;
-    res.render('game', { route: route, riddle: riddle.tauros, image: image });
-});
-
-app.get('/manya', (req, res) => {
-    const route = req.route.path
-    const image = `/images/voltorb.png`;
-    res.render('game', { route: route, riddle: riddle.voltorb, image: image });
-});
-
-app.get('/sarvam', (req, res) => {
-    const route = req.route.path
-    const image = `/images/vulpix.png`;
-    res.render('game', { route: route, riddle: riddle.vulpix, image: image });
-});
-
-app.get('/jatin', (req, res) => {
-    const route = req.route.path
-    const image = `/images/zapdos.png`;
-    res.render('game', { route: route, riddle: riddle.zapdos, image: image });
-});
-
 
 
 app.listen(PORT, () => {

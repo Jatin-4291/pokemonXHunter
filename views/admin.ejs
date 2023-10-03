@@ -4,14 +4,14 @@
 <div class="container container-admin">
     <div class="row">
         <h1>Admin Page &nbsp;&nbsp;</h1>
-        <div class="admin-nav">
+        <div class="admin-nav col-lg-12">
             <form action="/admin/logout" method="post">
                 <button type="submit" class="btn btn-primary">Logout</button>
             </form>
             <form action="/admin/scoreboard" method="get">
                 <button type="submit" class="btn btn-primary">Scoreboard</button>
             </form>
-            <form action="/admin/scoreboard" method="get">
+            <form action="/admin/register" method="get">
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
             <form action="/start" method="post">
@@ -24,7 +24,7 @@
             <input type=text" name="email" placeholder="Enter Leader's Email Id">
             <button type="submit" class="btn btn-primary">Collect</button>
         </form>
-        <div>
+        <div class="col-lg-12">
             <h3>No of participants are = <%= noOfParticipants %> </h3>
         </div>
     </div>

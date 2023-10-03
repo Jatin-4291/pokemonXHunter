@@ -30,23 +30,46 @@ const location = {
     renewable_energy_lab : " In this place, we innovate and explore, Sustainable sources we all adore. Batteries store what nature provides, In this eco-friendly space, progress abides",
     mba_park : "on the far edge close to those mountains, it’s a refuge from hustle,a serene embrace",
     ucc : "I'm where wires and screens abound, In a campus hub where knowledge is found. Students and staff, they all rely, On me to help them reach the sky",
-    messi : "Seek the icon where jerseys roar his name, In a stadium's embrace, his glory's the flame. Think of the maestro in this thrilling chase"
+    messi : "Seek the icon where jerseys roar his name, In a stadium's embrace, his glory's the flame. Think of the maestro in this thrilling chase",
+    samarpan_quaters: ":I am very blue, But I'm not sad. A creature of elegance , I take my stand . But in this riddle's maze, I conceal my name, A puzzle to solve, a cryptic claim."
 }
 
 const riddle = {
-    pikachu : location.saraswati_mata,
-    chansey : location.library,
-    charmender : location.supra_quater,
-    caterpie : location.cafeteria,
-    charizard : location.bank,
-    clefairy : location.tpo,
-    diglett : location.nursery,
-    ditto : location.sports_room,
-    dragonite : location.auditorium,
-    eevee : location.vc_office_front,
-    squitle : location.computer_department,
+    'pikachu' : location.saraswati_mata,
+    'chansey' : location.library,
+    'charmender' : location.supra_quater,
+    'caterpie' : location.cafeteria,
+    'charizard' : location.bank,
+    'clefairy' : location.tpo,
+    'diglett' : location.nursery,
+    'ditto' : location.sports_room,
+    'dragonite' : location.auditorium,
+    'eevee' : location.vc_office_front,
+    'squitle' : location.ucc,
 
-    
+    'ekans' : location.computer_department,
+    'gengar' : location.electronics_department,
+    'geodude' : location.electrical_department,
+    'gyarados' : location.carpenter_room,
+    'jigglypuff' : location.mechanical_workshop,
+    'jynx' : location.golden_jubilee_gate,
+    'koffing' : location.staff_parking,
+    'lapras' : location.mother_dairy,
+    'machamp' : location.temple,
+    'magikarp' : location.srijan_quaters,
+    'snorlax' : location.messi,
+
+    'mewoth' : location.samarpan_quaters,
+    'mew' : location.cv_raman,
+    'mewtwo' : location.post_box,
+    'mr_mine' : location.public_affair_cell,
+    'bellsprout' : location.medical_room,
+    'butterfree' : location.mechanical_department,
+    'oddish' : location.soldier,
+    'onix' : location.royal_enfield,
+    'muk' : location.lovers_wall,
+    'ninetales' : location.renewable_energy_lab,
+    'persian' : location.mba_park
 }
 
 module.exports = riddle;
