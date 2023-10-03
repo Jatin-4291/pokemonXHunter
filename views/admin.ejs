@@ -11,12 +11,15 @@
             <form action="/admin/scoreboard" method="get">
                 <button type="submit" class="btn btn-primary">Scoreboard</button>
             </form>
+            <form action="/admin/scoreboard" method="get">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
         </div>
         <form class="card-collect" action="/admin/card-submit" method="post">
             <h3>Card Collect</h3>
             <input type=text" name="teamName" placeholder="Enter Team Name">
             <input type=text" name="email" placeholder="Enter Leader's Email Id">
-            <button type="submit" class="btn btn-primary">Scoreboard</button>
+            <button type="submit" class="btn btn-primary">Collect</button>
         </form>
         <div>
             <h3>No of participants are = <%= noOfParticipants %> </h3>
