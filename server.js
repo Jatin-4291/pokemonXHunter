@@ -297,7 +297,7 @@ app.post('/start', async (req, res) => {
 
 app.post('/hint-single',(req,res)=>{
     const email = req.body.email;
-    const hnts = req.body.hints;
+    const hnts = Number.parseInt(req.body.hint);
 
     team.findOne({email:email}).then((data)=>{
         team.updateOne({email:email},{$inc:{hintsLeft:hnts}}).then(()=>{
@@ -330,7 +330,7 @@ app.post('/start-single', (req, res) => {
                         ${riddle[data.next]}
                     </div>
                     <div>
-                        https://pokemonxhunter.onrender.com/riddle/${data.next}
+                        https://pokemonxhunter.onrender.com/riddle/${routes[data.next]}
                     </div>
                     <div>
                         <h2>Contacts for any query</h2>
@@ -526,8 +526,8 @@ app.post('/admin/register', async (req, res) => {
 });
 
 app.get('/riddle/:code', (req, res) => {
-    const route = routes[req.params.code];
-    res.render('riddle', { route: route, riddle: riddle[req.params.code] });
+    const route = req.params.code;
+    res.render('riddle', { route: route, riddle: riddle[codes[req.params.code]] });
 })
 
 app.get('/hint/:code', (req, res) => {
@@ -537,13 +537,17 @@ app.get('/hint/:code', (req, res) => {
 
 app.post('/hint/:code', (req, res) => {
     const email = req.body.email;
+    const pass = req.body.password;
     team.findOne({ email: email }).then((data) => {
+        if(pass !== data.password){
+            res.render('message',{message: "Wrong Password"});
+        }
         if (data.hintsLeft === 0) {
-            res.render('message', "No hints Left");
+            res.render('message', {message: "No hints Left"});
         }
         else {
             team.updateOne({ email: email }, { $inc: { hintsLeft: -1 } }).then(() => {
-                res.render('message', { message: hint[req.params.code] });
+                res.render('message', { message: hint[codes[req.params.code]] });
             }).catch((err) => {
                 console.log(err);
                 res.status(500).send('Something went wrong');
