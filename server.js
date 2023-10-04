@@ -526,8 +526,8 @@ app.post('/admin/register', async (req, res) => {
 });
 
 app.get('/riddle/:code', (req, res) => {
-    const route = route[req.params.code];
-    res.render('riddle', { route: route, riddle: riddle[req.params.code] });
+    const routes = route[req.params.code];
+    res.render('riddle', { routes: route, riddle: riddle[req.params.code] });
 })
 
 app.get('/hint/:code', (req, res) => {

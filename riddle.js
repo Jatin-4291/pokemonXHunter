@@ -31,7 +31,7 @@ const location = {
     mba_park : "on the far edge close to those mountains, it’s a refuge from hustle,a serene embrace",
     ucc : "I'm where wires and screens abound, In a campus hub where knowledge is found. Students and staff, they all rely, On me to help them reach the sky",
     messi : "Seek the icon where jerseys roar his name, In a stadium's embrace, his glory's the flame. Think of the maestro in this thrilling chase",
-    samarpan_quaters: ":I am very blue, But I'm not sad. A creature of elegance , I take my stand . But in this riddle's maze, I conceal my name, A puzzle to solve, a cryptic claim."
+    samarpan_quaters: "I am very blue, But I'm not sad. A creature of elegance , I take my stand . But in this riddle's maze, I conceal my name, A puzzle to solve, a cryptic claim."
 }
 
 const riddle = {
