@@ -59,7 +59,7 @@ const riddle = {
     'magikarp' : location.srijan_quaters,
     'snorlax' : location.messi,
 
-    'mewoth' : location.samarpan_quaters,
+    'meowth' : location.samarpan_quaters,
     'mew' : location.cv_raman,
     'mewtwo' : location.post_box,
     'mr_mine' : location.public_affair_cell,

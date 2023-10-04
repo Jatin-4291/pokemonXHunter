@@ -58,52 +58,6 @@ const teamSchema = new mongoose.Schema({
     member4: String,
     member5: String,
     points: Number,
-    hintsLeft: Number,
-    bellsprout: Boolean,
-    bulbasaur: Boolean,
-    butterfree: Boolean,
-    caterpie: Boolean,
-    chansey: Boolean,
-    charizard: Boolean,
-    charmander: Boolean,
-    clefairy: Boolean,
-    diglett: Boolean,
-    ditto: Boolean,
-    dragonite: Boolean,
-    eevee: Boolean,
-    ekans: Boolean,
-    gengar: Boolean,
-    geodude: Boolean,
-    gyarados: Boolean,
-    jigglypuff: Boolean,
-    jynx: Boolean,
-    koffing: Boolean,
-    lapras: Boolean,
-    machamp: Boolean,
-    magikarp: Boolean,
-    meowth: Boolean,
-    mew: Boolean,
-    mewtwo: Boolean,
-    mr_mine: Boolean,
-    muk: Boolean,
-    ninetales: Boolean,
-    oddish: Boolean,
-    onix: Boolean,
-    persian: Boolean,
-    pikachu: Boolean,
-    psyduck: Boolean,
-    rattata: Boolean,
-    rhyhorn: Boolean,
-    scyther: Boolean,
-    seadra: Boolean,
-    slowpoke: Boolean,
-    snorlex: Boolean,
-    squirtle: Boolean,
-    staryu: Boolean,
-    tauros: Boolean,
-    voltorb: Boolean,
-    vulpix: Boolean,
-    zapdos: Boolean,
     next: String
 });
 
@@ -128,8 +82,6 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
     done(null, user);
 });
-
-
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -194,7 +146,7 @@ app.post('/admin/card-submit', (req, res) => {
 //             res.redirect('/admin/register');
 //         });
 //     }
-// }); 
+// });
 
 app.get('/admin/login', (req, res) => {
     res.render('adminLogin');
@@ -288,26 +240,13 @@ app.post('/start', async (req, res) => {
                 if (err) {
                     console.log(err)
                 } else {
-                    res.render('message',{message: "Mail Sent"});
+                    res.render('message', { message: "Mail Sent" });
                 }
             })
         }
     });
 });
 
-app.post('/hint-single',(req,res)=>{
-    const email = req.body.email;
-    const hnts = Number.parseInt(req.body.hint);
-
-    team.findOne({email:email}).then((data)=>{
-        team.updateOne({email:email},{$inc:{hintsLeft:hnts}}).then(()=>{
-            res.redirect('/admin');
-        }).catch((err)=>{
-            console.log(err);
-            res.status(500).send('Something went wrong');
-        });
-    });
-});
 
 app.post('/start-single', (req, res) => {
     const email = req.body.email;
@@ -357,7 +296,7 @@ app.post('/start-single', (req, res) => {
 app.post('/edit', (req, res) => {
     const email = req.body.email;
 
-    team.findOneAndUpdate({ email: email }, { member2: req.body.member2, member3: req.body.member3, member4: req.body.member4, member5: req.body.member5, next: req.body.next }).then(() => {
+    team.findOneAndUpdate({ email: email }, { next: req.body.next }).then(() => {
         res.redirect('/admin/scoreboard');
     }).catch((err) => {
         console.log(err);
@@ -414,52 +353,6 @@ app.post('/admin/register', async (req, res) => {
                 member4: member4,
                 member5: member5,
                 points: 0,
-                hintsLeft: 1,
-                bellsprout: false,
-                bulbasaur: false,
-                butterfree: false,
-                caterpie: false,
-                chansey: false,
-                charizard: false,
-                charmander: false,
-                clefairy: false,
-                diglett: false,
-                ditto: false,
-                dragonite: false,
-                eevee: false,
-                ekans: false,
-                gengar: false,
-                geodude: false,
-                gyarados: false,
-                jigglypuff: false,
-                jynx: false,
-                koffing: false,
-                lapras: false,
-                machamp: false,
-                magikarp: false,
-                meowth: false,
-                mew: false,
-                mewtwo: false,
-                mr_mine: false,
-                muk: false,
-                ninetales: false,
-                oddish: false,
-                onix: false,
-                persian: false,
-                pikachu: false,
-                psyduck: false,
-                rattata: false,
-                rhyhorn: false,
-                scyther: false,
-                seadra: false,
-                slowpoke: false,
-                snorlex: false,
-                squirtle: false,
-                staryu: false,
-                tauros: false,
-                voltorb: false,
-                vulpix: false,
-                zapdos: false,
                 next: pokemon[Math.floor(Math.random() * pokemon.length)]
             });
 
@@ -485,7 +378,7 @@ app.post('/admin/register', async (req, res) => {
                             <p>Join our WhatsApp group to stay updated: https://chat.whatsapp.com/Gxi1DJZtonp0CqPFebZ0Y4</p>
                         </div>
                         <div>
-                            <h2>Contacts</h2>
+                        <h2>Contacts</h2>
                             <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
                             <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
                             <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
@@ -530,31 +423,6 @@ app.get('/riddle/:code', (req, res) => {
     res.render('riddle', { route: route, riddle: riddle[req.params.code] });
 })
 
-app.get('/hint/:code', (req, res) => {
-    const image = `/images/${codes[req.params.code]}.png`
-    res.render('hint', { image: image, code: req.params.code });
-});
-
-app.post('/hint/:code', (req, res) => {
-    const email = req.body.email;
-    const pass = req.body.password;
-    team.findOne({ email: email }).then((data) => {
-        if(pass != data.password){
-            res.render('message',{message: "Wrong Password"});
-        }
-        if (data.hintsLeft === 0) {
-            res.render('message', {message: "No hints Left"});
-        }
-        else {
-            team.updateOne({ email: email }, { $inc: { hintsLeft: -1 }, $inc : {points : -1} }).then(() => {
-                res.render('message', { message: hint[codes[req.params.code]] });
-            }).catch((err) => {
-                console.log(err);
-                res.status(500).send('Something went wrong');
-            });
-        }
-    });
-});
 
 app.get('/ankur', (req, res) => {
     res.render('message', { message: "Meet me at Computer Department, Ankur Yadav" })
@@ -611,7 +479,7 @@ app.post(`/:code`, (req, res) => {
                                     <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
                                     <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
                                     <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
-                                </div>
+                                    </div>
                             `
                     }
 
@@ -703,7 +571,7 @@ app.post(`/:code`, (req, res) => {
                                     <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
                                     <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
                                     <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
-                                </div>
+                                    </div>
                             `
                     }
 
@@ -726,6 +594,49 @@ app.post(`/:code`, (req, res) => {
     });
 });
 
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+
+// app.get('/hint/:code', (req, res) => {
+//     const image = `/images/${codes[req.params.code]}.png`
+//     res.render('hint', { image: image, code: req.params.code });
+// });
+
+// app.post('/hint/:code', (req, res) => {
+//     const email = req.body.email;
+//     const pass = req.body.password;
+//     team.findOne({ email: email }).then((data) => {
+//         if(pass != data.password){
+//             res.render('message',{message: "Wrong Password"});
+//         }
+//         if (data.hintsLeft === 0) {
+//             res.render('message', {message: "No hints Left"});
+//         }
+//         else {
+//             team.updateOne({ email: email }, { $inc: { hintsLeft: -1 }, $inc : {points : -1} }).then(() => {
+//                 res.render('message', { message: hint[codes[req.params.code]] });
+//             }).catch((err) => {
+//                 console.log(err);
+//                 res.status(500).send('Something went wrong');
+//             });
+//         }
+//     });
+// });
+
+// app.post('/hint-single',(req,res)=>{
+//     const email = req.body.email;
+//     const hnts = Number.parseInt(req.body.hint);
+
+//     team.findOne({email:email}).then((data)=>{
+//         team.updateOne({email:email},{$inc:{hintsLeft:hnts}}).then(()=>{
+//             res.redirect('/admin');
+//         }).catch((err)=>{
+//             console.log(err);
+//             res.status(500).send('Something went wrong');
+//         });
+//     });
+// });
