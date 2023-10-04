@@ -423,6 +423,17 @@ app.post('/admin/register', async (req, res) => {
         res.redirect('/admin/login');
     }
 });
+app.get('/riddle/ankur', (req, res) => {
+    res.render('message', { message: "Meet me at Computer Department, Ankur Yadav" })
+});
+
+app.get('/riddle/mohan', (req, res) => {
+    res.render('message', { message: "Meet me at the Mother Dairy, Mohan(M.K)" })
+});
+
+app.get('/riddle/hemang', (req, res) => {
+    res.render('message', { message: "Meet me at the front of Mechanical Department, Hemang" })
+});
 
 app.get('/riddle/:code', (req, res) => {
     const route = routes[req.params.code];
@@ -430,17 +441,6 @@ app.get('/riddle/:code', (req, res) => {
 })
 
 
-app.get('/ankur', (req, res) => {
-    res.render('message', { message: "Meet me at Computer Department, Ankur Yadav" })
-});
-
-app.get('/mohan', (req, res) => {
-    res.render('message', { message: "Meet me at the Mother Dairy, Mohan(M.K)" })
-});
-
-app.get('/hemang', (req, res) => {
-    res.render('message', { message: "Meet me at the front of Mechanical Department, Hemang" })
-});
 
 
 app.get(`/:code`, (req, res) => {
@@ -590,7 +590,6 @@ app.post(`/:code`, (req, res) => {
                             res.redirect('/admin');
                         }
                     })
-
                     res.render('riddle', { riddle: riddle[path3[nxt]] });
                 }).catch((err) => {
                     console.log(err);
