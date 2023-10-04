@@ -83,6 +83,12 @@ passport.deserializeUser(function (user, done) {
     done(null, user);
 });
 
+// app.get('/setup', (req, res) => {
+//     team.updateMany({}, { $set: { points: 0 } }).then(() => {
+//         res.send('done');
+//     });
+// })
+
 app.get('/', (req, res) => {
     res.render('index');
 });
@@ -452,8 +458,9 @@ app.post(`/:code`, (req, res) => {
             res.render('message', { message: "Wrong Answer" })
         }
         else {
+            // res.send(codes[req.params.code] === path3['mr_mime']);
             if (path1[codes[req.params.code]] != undefined) {
-                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path1[nxt] } }).then(async () => {
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { next: path1[nxt] } }).then(async () => {
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -584,11 +591,14 @@ app.post(`/:code`, (req, res) => {
                         }
                     })
 
-                    res.render('riddle', { riddle: riddle[path2[nxt]] });
+                    res.render('riddle', { riddle: riddle[path3[nxt]] });
                 }).catch((err) => {
                     console.log(err);
                     res.status(500).send('Something went wrong');
                 });
+            }
+            else{
+                res.send('hi')
             }
         }
     });

@@ -30,7 +30,7 @@ const codes = {
     '79710609' : 'muk',
     '79010609' : 'ninetales',
     '09010609' : 'persian',
-    '03030303' : 'snorlex',
+    '03030303' : 'snorlax',
     '10000001' : 'squirtle'
 }
 

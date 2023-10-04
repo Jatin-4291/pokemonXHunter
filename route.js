@@ -30,7 +30,7 @@ const routes = {
     muk : '79710609',
     ninetales : '79010609',
     persian : '09010609',
-    snorlex : '03030303',
+    snorlax : '03030303',
     squirtle : '10000001'
 }
 
