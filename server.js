@@ -254,7 +254,7 @@ app.post('/start', async (req, res) => {
 });
 
 
-app.post('/start-single', (req, res) => {
+app.post('/start-single', async (req, res) => {
     const email = req.body.email;
     team.findOne({ email: email }).then(async (data) => {
         const transporter = nodemailer.createTransport({
@@ -552,7 +552,7 @@ app.post(`/:code`, (req, res) => {
                 });
             }
             else if (path3[codes[req.params.code]] != undefined) {
-                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: {  next: path3[nxt] } }).then(async () => {
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { next: path3[nxt] } }).then(async () => {
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -597,7 +597,7 @@ app.post(`/:code`, (req, res) => {
                     res.status(500).send('Something went wrong');
                 });
             }
-            else{
+            else {
                 res.send('hi')
             }
         }
