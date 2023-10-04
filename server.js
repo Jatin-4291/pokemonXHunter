@@ -546,7 +546,7 @@ app.post('/hint/:code', (req, res) => {
             res.render('message', {message: "No hints Left"});
         }
         else {
-            team.updateOne({ email: email }, { $inc: { hintsLeft: -1 } }).then(() => {
+            team.updateOne({ email: email }, { $inc: { hintsLeft: -1 }, $inc : {points : -1} }).then(() => {
                 res.render('message', { message: hint[codes[req.params.code]] });
             }).catch((err) => {
                 console.log(err);
