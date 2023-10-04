@@ -1,5 +1,5 @@
 const path3 = {
-    'mewoth' : 'mew',
+    'meowth' : 'mew',
     'mew' : 'mewtwo',
     'mewtwo' : 'mr_mime',
     'mr_mime' : 'bellsprout',

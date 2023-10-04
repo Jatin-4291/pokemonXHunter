@@ -506,7 +506,7 @@ app.post(`/:code`, (req, res) => {
                 });
             }
             else if (path2[codes[req.params.code]] != undefined) {
-                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path2[nxt] } }).then(async () => {
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { next: path2[nxt] } }).then(async () => {
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -518,7 +518,7 @@ app.post(`/:code`, (req, res) => {
                     let mail = {
                         from: `${process.env.EMAIL}`,
                         to: `${email}`,
-                        subject: 'Team Registered Successfully',
+                        subject: 'HunterXPokemon',
                         html: `
                                 <h1>Your Next Clue is here GOOD LUCK for the Game</h1>
                                 <div>
@@ -552,7 +552,7 @@ app.post(`/:code`, (req, res) => {
                 });
             }
             else if (path3[codes[req.params.code]] != undefined) {
-                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: { [codes[req.params.code]]: true, next: path3[nxt] } }).then(async () => {
+                team.updateOne({ email: email }, { $inc: { points: 1 }, $set: {  next: path3[nxt] } }).then(async () => {
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -564,7 +564,7 @@ app.post(`/:code`, (req, res) => {
                     let mail = {
                         from: `${process.env.EMAIL}`,
                         to: `${email}`,
-                        subject: 'Team Registered Successfully',
+                        subject: 'THunterXPokemon',
                         html: `
                                 <h1>Your Next Clue is here GOOD LUCK for the Game</h1>
                                 <div>
