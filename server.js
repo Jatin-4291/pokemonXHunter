@@ -270,10 +270,10 @@ app.post('/start', async (req, res) => {
                 html: `
                         <h1>Your First Clue is here GOOD LUCK for the Game</h1>
                         <div>
-                            ${riddle[data.next]}
+                            ${riddle[data[i].next]}
                         </div>
                         <div>
-                            https://pokemonxhunter.onrender.com/riddle/${data.next}
+                            https://pokemonxhunter.onrender.com/riddle/${data[i].next}
                         </div>
                         <div>
                             <h2>Contacts for any query</h2>
@@ -330,7 +330,7 @@ app.post('/start-single', (req, res) => {
                         ${riddle[data.next]}
                     </div>
                     <div>
-                        https://pokemonxhunter.onrender.com/riddle/${routes[data.next]}
+                        https://pokemonxhunter.onrender.com/riddle/${data.next}
                     </div>
                     <div>
                         <h2>Contacts for any query</h2>
@@ -526,8 +526,8 @@ app.post('/admin/register', async (req, res) => {
 });
 
 app.get('/riddle/:code', (req, res) => {
-    const route = req.params.code;
-    res.render('riddle', { route: route, riddle: riddle[codes[req.params.code]] });
+    const route = route[req.params.code];
+    res.render('riddle', { route: route, riddle: riddle[req.params.code] });
 })
 
 app.get('/hint/:code', (req, res) => {
