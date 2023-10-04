@@ -45,7 +45,7 @@ const riddle = {
     'ditto' : location.sports_room,
     'dragonite' : location.auditorium,
     'eevee' : location.vc_office_front,
-    'squitle' : location.ucc,
+    'squirtle' : location.ucc,
 
     'ekans' : location.computer_department,
     'gengar' : location.electronics_department,
@@ -62,7 +62,7 @@ const riddle = {
     'meowth' : location.samarpan_quaters,
     'mew' : location.cv_raman,
     'mewtwo' : location.post_box,
-    'mr_mine' : location.public_affair_cell,
+    'mr_mime' : location.public_affair_cell,
     'bellsprout' : location.medical_room,
     'butterfree' : location.mechanical_department,
     'oddish' : location.soldier,

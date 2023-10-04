@@ -8,8 +8,8 @@ const path1 = {
     'diglett' : 'ditto',
     'ditto' : 'dragonite',
     'dragonite' : 'eevee',
-    'eevee' : 'squitle',
-    'squitle' : 'hemang'
+    'eevee' : 'squirtle',
+    'squirtle' : 'hemang'
 }
 
 module.exports = path1;

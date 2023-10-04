@@ -564,7 +564,7 @@ app.post(`/:code`, (req, res) => {
                     let mail = {
                         from: `${process.env.EMAIL}`,
                         to: `${email}`,
-                        subject: 'THunterXPokemon',
+                        subject: 'HunterXPokemon',
                         html: `
                                 <h1>Your Next Clue is here GOOD LUCK for the Game</h1>
                                 <div>
