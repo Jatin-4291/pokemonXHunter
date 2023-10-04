@@ -539,7 +539,7 @@ app.post('/hint/:code', (req, res) => {
     const email = req.body.email;
     const pass = req.body.password;
     team.findOne({ email: email }).then((data) => {
-        if(pass !== data.password){
+        if(pass != data.password){
             res.render('message',{message: "Wrong Password"});
         }
         if (data.hintsLeft === 0) {
