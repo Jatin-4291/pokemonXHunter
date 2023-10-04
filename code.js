@@ -2,7 +2,7 @@ const codes = {
     '28112022' : 'pikachu',
     '28112000' : 'caterpie',
     '28112112' : 'chansey',
-    '28113132' : 'charmander',
+    '28113132' : 'charmender',
     '28113112' : 'charizard',
     '28313132' : 'clefairy',
     '18313132' : 'diglett',

@@ -1,7 +1,7 @@
 const path1 = {
     'pikachu' : 'chansey',
     'chansey' : 'charmender',
-    'charmander' : 'caterpie',
+    'charmender' : 'caterpie',
     'caterpie' : 'charizard',
     'charizard' : 'clefairy',
     'clefairy' : 'diglett',

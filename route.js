@@ -2,7 +2,7 @@ const routes = {
     pikachu : '28112022',
     caterpie : '28112000',
     chansey : '28112112',
-    charmander : '28113132',
+    charmender : '28113132',
     charizard : '28113112',
     clefairy : '28313132',
     diglett : '18313132',

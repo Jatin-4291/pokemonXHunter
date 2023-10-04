@@ -37,7 +37,7 @@ const location = {
 const riddle = {
     'pikachu' : location.saraswati_mata,
     'chansey' : location.library,
-    'charmander' : location.supra_quater,
+    'charmender' : location.supra_quater,
     'caterpie' : location.cafeteria,
     'charizard' : location.bank,
     'clefairy' : location.tpo,
