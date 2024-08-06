@@ -1,4 +1,3 @@
-```markdown
 # PokemonXHunter
 
 ![PokemonXHunter Banner](https://github.com/nishujangra/pokemonXHunter/blob/main/public/pikachu.png)
@@ -84,6 +83,5 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 Feel free to explore the world of Pokémon with PokemonXHunter. Catch 'em all!
-```
 
 Make sure to replace any placeholders with actual links, customizations, and information as needed. This README.md provides an overview of the project, its features, installation instructions, and more, making it easy for users and contributors to understand and use your application.
