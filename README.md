@@ -1,6 +1,6 @@
 # PokemonXHunter
 
-![PokemonXHunter Banner](https://github.com/nishujangra/pokemonXHunter/public/HunterXPokemon.png)
+![PokemonXHunter Banner](https://github.com/nishujangra/pokemonXHunter/blob/master/public/HunterXPokemon.png)
 
 PokemonXHunter is a web application that lets you explore the world of Pokémon. It's built using Nodejs [PokeAPI](https://pokeapi.co/).
 
