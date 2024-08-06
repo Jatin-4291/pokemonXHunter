@@ -189,7 +189,7 @@ app.post('/admin/logout', (req, res) => {
 
 app.get('/admin/scoreboard', (req, res) => {
     if (req.isAuthenticated()) {
-        team.find().then((data) => {
+        team.find().sort({ points: 'desc' }).then((data) => {
             res.render('scoreboard', { data: data });
         });
     }
@@ -311,8 +311,111 @@ app.post('/edit', (req, res) => {
 })
 
 app.get('/register', (req, res) => {
-    res.render('register-end');
+    // res.render('register-end');
+    res.render('register', { message: "" });
 })
+
+app.post('/register', async (req, res) => {
+    const teamName = req.body.teamName;
+    const leaderName = req.body.leaderName;
+    const email = req.body.email;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+    const member2 = req.body.member2;
+    const member3 = req.body.member3;
+    const member4 = req.body.member4;
+    const member5 = req.body.member5;
+
+    if (teamName === "" || leaderName === "" || email === "" || password === "" || confirmPassword === "" || member2 === "") {
+        res.render('register', { message: "Please fill all the required fields" });
+    }
+    else if (!email.includes('@') || !email.includes('.')) {
+        res.render('register', { message: "Please enter a valid email" });
+    }
+    else if (password !== confirmPassword) {
+        res.render('register', { message: "Passwords don't match" });
+    }
+    else if (password.length < 8) {
+        res.render('register', { message: "Password should be atleast 8 characters long" });
+    }
+    else {
+        team.findOne({ email: email }).then((err, data) => {
+            if (data) {
+                res.render('register', { message: "Email already registered" });
+            }
+        });
+
+        const newTeam = new team({
+            teamName: teamName,
+            leaderName: leaderName,
+            email: email,
+            password: password,
+            member2: member2,
+            member3: member3,
+            member4: member4,
+            member5: member5,
+            points: 0,
+            next: pokemon[Math.floor(Math.random() * pokemon.length)]
+        });
+
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: `${process.env.EMAIL}`,
+                pass: `${process.env.PASSWORD}`
+            }
+        });
+
+        let mail = {
+            from: `${process.env.EMAIL}`,
+            to: `${email}`,
+            subject: 'Team Registered Successfully',
+            html: `
+                        <div>
+                            <h1>Team Registered Successfully</h1>
+                            <p>Team Name: ${teamName}</p>
+                            <p>Leader Name: <b>${leaderName}</b></p>
+                            <p>Team Members: <b>${member2}</b> <br> <b>${member3}</b> <br> <b>${member4}</b> <br> <b>${member5}</b></p>
+                            <p>Join our WhatsApp group to stay updated: https://chat.whatsapp.com/Gxi1DJZtonp0CqPFebZ0Y4</p>
+                        </div>
+                        <div>
+                        <h2>Contacts</h2>
+                            <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
+                            <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
+                            <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
+                        </div>
+                    `,
+            attachments: [
+                {
+                    filename: 'GUIDELINES.docx',
+                    path: './public/GUIDELINES.docx',
+                    contentType: 'application/docx'
+                },
+                {
+                    filename: 'HunterXPokemon.png',
+                    path: './public/HunterXPokemon.png',
+                    contentType: 'application/png'
+                }
+            ]
+        }
+
+        await transporter.sendMail(mail, (err, data) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(data)
+            }
+        })
+
+        newTeam.save().then(() => {
+            res.render('confirm');
+        }).catch(() => {
+            res.redirect('/register');
+        })
+    }
+});
+
 
 app.get('/admin/register', (req, res) => {
     res.render('register', { message: "" });
