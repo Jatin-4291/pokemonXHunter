@@ -1,16 +1,15 @@
-require("dotenv").config();
+require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
-const SMTPTransport = require("nodemailer/lib/smtp-transport");
 const request = require("request");
-const riddle = require("./riddle");
-const codes = require("./code");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const session = require("express-session");
+const riddle = require("./riddle");
+const codes = require("./code");
 const pokemon = require("./pokemon");
 const path1 = require("./path1");
 const path2 = require("./path2");
@@ -19,23 +18,20 @@ const hint = require("./hint");
 const routes = require("./route");
 
 const app = express();
-const PORT = 5000;
+const PORT = 4000;
 
 // Set public folder as static folder for static files
 app.use(express.static(__dirname + "/public"));
 
-// parse application/json
+// Middleware setup
 app.use(bodyParser.json());
-
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Set EJS as templating engine
-app.set("view engine", "ejs");
-
-// Set cors
 app.use(cors());
 
+// Set EJS as the templating engine
+app.set("view engine", "ejs");
+
+// Express session setup
 app.use(
   session({
     secret: process.env.SECRET,
@@ -44,13 +40,45 @@ app.use(
   })
 );
 
+// Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(
-  `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@pokemonxhunter.e7yci.mongodb.net/?retryWrites=true&w=majority&appName=PokemonXhunter`
-);
+// Error handling for uncaught exceptions
+process.on("uncaughtException", (err) => {
+  console.error("Unhandled Exception!", err);
+  process.exit(1);
+});
 
+// MongoDB connection setup
+const dbUrl = process.env.DB_URI.replace("<db_password>", process.env.DB_PASS);
+console.log(dbUrl);
+
+mongoose
+  .connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB", err);
+    process.exit(1);
+  });
+
+// Start server
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+// Error handling for unhandled promise rejections
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection!", err);
+  server.close(() => {
+    process.exit(1);
+  });
+});
 const teamSchema = new mongoose.Schema({
   teamName: String,
   leaderName: String,
