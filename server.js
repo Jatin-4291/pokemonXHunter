@@ -24,8 +24,8 @@ const PORT = 4000;
 app.use(express.static(__dirname + "/public"));
 
 // Middleware setup
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Set EJS as the templating engine
@@ -37,6 +37,7 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: { secure: false }, // Set secure: true if using HTTPS in production
   })
 );
 
@@ -71,14 +72,8 @@ mongoose
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
 // Error handling for unhandled promise rejections
-process.on("unhandledRejection", (err) => {
-  console.error("Unhandled Rejection!", err);
-  server.close(() => {
-    process.exit(1);
-  });
-});
+
 const teamSchema = new mongoose.Schema({
   teamName: String,
   leaderName: String,
@@ -721,11 +716,6 @@ app.post(`/:code`, async (req, res) => {
     res.status(500).send("Something went wrong");
   }
 });
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
 // app.get('/hint/:code', (req, res) => {
 //     const image = `/images/${codes[req.params.code]}.png`
 //     res.render('hint', { image: image, code: req.params.code });
