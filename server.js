@@ -274,7 +274,9 @@ app.post("/start", async (req, res) => {
             ${riddle[data[i].next]}
           </div>
           <div>
-            https://pokemonxhunter.onrender.com/riddle/${data[i].next}
+            https://strong-presence-production.up.railway.app/riddle/${
+              data[i].next
+            }
           </div>
           <div>
             <h2>Contacts for any query</h2>
@@ -326,7 +328,9 @@ app.post("/start-single", async (req, res) => {
                         ${riddle[data.next]}
                     </div>
                     <div>
-                        https://pokemonxhunter.onrender.com/riddle/${data.next}
+                       https://strong-presence-production.up.railway.app/riddle/${
+                         data.next
+                       }
                     </div>
                     <div>
                         <h2>Contacts for any query</h2>
@@ -689,7 +693,7 @@ app.post(`/:code`, async (req, res) => {
           ${riddle[nextPath]}
         </div>
         <div>
-          https://pokemonxhunter.onrender.com/riddle/${nextPath}
+          https://strong-presence-production.up.railway.app/riddle/${nextPath}
         </div>
         <div>
           <h2>Contacts for any query</h2>
