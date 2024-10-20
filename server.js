@@ -615,7 +615,7 @@ app.post(`/:code`, async (req, res) => {
       return res.render("message", { message: "You are disqualified" });
     }
 
-    if (data.requestCount >= 40) {
+    if (data.requestCount >= 25) {
       await team.updateOne({ email: email }, { $set: { disqualified: true } });
       return res.render("message", { message: "Disqualified" });
     }
