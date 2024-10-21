@@ -75,7 +75,7 @@ const server = app.listen(PORT, () => {
 // Error handling for unhandled promise rejections
 
 const teamSchema = new mongoose.Schema({
-  teamName: { type: String, unique: true },
+  teamName: String,
   leaderName: String,
   email: String,
   password: String,
@@ -373,8 +373,6 @@ app.get("/register", (req, res) => {
 
 //register user
 app.post("/register", async (req, res) => {
-  console.log("hello");
-
   const teamName = req.body.teamName;
   const leaderName = req.body.leaderName;
   const email = req.body.email;
@@ -384,6 +382,7 @@ app.post("/register", async (req, res) => {
   const member3 = req.body.member3;
   const member4 = req.body.member4;
   const member5 = req.body.member5;
+  console.log(email, member5);
 
   if (
     teamName === "" ||
@@ -400,14 +399,12 @@ app.post("/register", async (req, res) => {
     return res.render("register", { message: "Please enter a valid email" });
   } else if (password !== confirmPassword) {
     return res.render("register", { message: "Passwords don't match" });
-  } else if (password.length < 8) {
-    return res.render("register", {
-      message: "Password should be at least 8 characters long",
-    });
   }
+  console.log("yo");
 
   try {
     const existingTeam = await team.findOne({ email: email });
+    console.log(existingTeam);
 
     if (existingTeam) {
       return res.render("register", { message: "Email already registered" });
@@ -425,6 +422,7 @@ app.post("/register", async (req, res) => {
       points: 0,
       next: pokemon[Math.floor(Math.random() * pokemon.length)],
     });
+    console.log(newTeam);
 
     await team.register(newTeam, password);
 
