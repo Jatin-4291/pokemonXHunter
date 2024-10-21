@@ -75,7 +75,7 @@ const server = app.listen(PORT, () => {
 // Error handling for unhandled promise rejections
 
 const teamSchema = new mongoose.Schema({
-  teamName: String,
+  teamName: { type: String, unique: true },
   leaderName: String,
   email: String,
   password: String,
@@ -323,22 +323,22 @@ app.post("/start-single", async (req, res) => {
       to: `${email}`,
       subject: "Game Started",
       html: `
-                    <h1>Your First Clue is here GOOD LUCK for the Game</h1>
-                    <div>
-                        ${riddle[data.next]}
-                    </div>
-                    <div>
-                       https://strong-presence-production.up.railway.app/riddle/${
-                         data.next
-                       }
-                    </div>
-                    <div>
-                        <h2>Contacts for any query</h2>
-                        <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
-                        <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
-                        <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
-                    </div>
-                `,
+          <h1>Your First Clue is here GOOD LUCK for the Game</h1>
+          <div>
+            ${riddle[data[i].next]}
+          </div>
+          <div>
+            https://strong-presence-production.up.railway.app/riddle/${
+              data[i].next
+            }
+          </div>
+          <div>
+            <h2>Contacts for any query</h2>
+            <p>IEEE YMCA SB JSEC - Deepak - 9821287225</p>
+            <p>IEEE WIE YMCA Secretary - Vinarm - 8168585381</p>
+            <p>IEEE WIE YMCA Vice Chairperson - Jatin Dua - 8810575463</p>
+          </div>
+          `,
     };
 
     await transporter.sendMail(mail, (err, data) => {
@@ -441,18 +441,18 @@ app.post("/register", async (req, res) => {
       to: `${email}`,
       subject: "Team Registered Successfully",
       html: `
-        <div>
+       <div>
           <h1>Team Registered Successfully</h1>
           <p>Team Name: ${teamName}</p>
           <p>Leader Name: <b>${leaderName}</b></p>
           <p>Team Members: <b>${member2}</b> <br> <b>${member3}</b> <br> <b>${member4}</b> <br> <b>${member5}</b></p>
-          <p>Join our WhatsApp group to stay updated: https://chat.whatsapp.com/Gxi1DJZtonp0CqPFebZ0Y4</p>
+          <p>Join our WhatsApp group to stay updated: https://chat.whatsapp.com/CfkbEJbVQAUCJgLcHiXUtT</p>
         </div>
         <div>
           <h2>Contacts</h2>
-          <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
-          <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
-          <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
+          <p>IEEE YMCA SB JSEC - Deepak - 9821287225</p>
+          <p>IEEE WIE YMCA Secretary - Vinarm - 8168585381</p>
+          <p>IEEE WIE Vice Chairperson - Jatin Dua -  8810575463</p>
         </div>
       `,
       attachments: [
@@ -462,8 +462,8 @@ app.post("/register", async (req, res) => {
           contentType: "application/docx",
         },
         {
-          filename: "HunterXPokemon.png",
-          path: "./public/HunterXPokemon.png",
+          filename: "pokemon x hunter 2.png",
+          path: "./public/pokemon x hunter 2.png",
           contentType: "application/png",
         },
       ],
@@ -688,19 +688,21 @@ app.post(`/:code`, async (req, res) => {
       to: `${email}`,
       subject: "HunterXPokemon",
       html: `
-        <h1>Your Next Clue is here GOOD LUCK for the Game</h1>
-        <div>
-          ${riddle[nextPath]}
-        </div>
-        <div>
-          https://strong-presence-production.up.railway.app/riddle/${nextPath}
-        </div>
-        <div>
-          <h2>Contacts for any query</h2>
-          <p>IEEE YMCA SB JSEC - Daniyal Jawed - 6287912722</p>
-          <p>IEEE SIGHT SB Chairperson - Nishant - 9896774495</p>
-          <p>IEEE WIE SB Chairperson - Asif - 9560491809</p>
-        </div>
+       <h1>Your First Clue is here GOOD LUCK for the Game</h1>
+          <div>
+            ${riddle[data[i].next]}
+          </div>
+          <div>
+            https://strong-presence-production.up.railway.app/riddle/${
+              data[i].next
+            }
+          </div>
+          <div>
+            <h2>Contacts for any query</h2>
+            <p>IEEE YMCA SB JSEC - Deepak - 9821287225</p>
+            <p>IEEE WIE YMCA Secretary - Vinarm - 8168585381</p>
+            <p>IEEE WIE YMCA Vice Chairperson - Jatin Dua - 8810575463</p>
+          </div>
       `,
     };
 
