@@ -688,11 +688,11 @@ app.post(`/:code`, async (req, res) => {
       html: `
        <h1>Your First Clue is here GOOD LUCK for the Game</h1>
           <div>
-            ${riddle[data[i].next]}
+            ${riddle[data.next]}
           </div>
           <div>
             https://strong-presence-production.up.railway.app/riddle/${
-              data[i].next
+              data.next
             }
           </div>
           <div>
